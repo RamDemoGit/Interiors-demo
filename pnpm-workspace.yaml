@@ -1,0 +1,6 @@
+# Dependency build scripts policy (pnpm fails the install with ERR_PNPM_IGNORED_BUILDS
+# if any package with an install script is left undecided, e.g. on Vercel).
+# unrs-resolver is an optional ESLint resolver; prebuilt binaries are used, so it is not run.
+allowBuilds:
+  sharp: true
+  unrs-resolver: false
