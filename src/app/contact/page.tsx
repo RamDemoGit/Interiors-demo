@@ -108,8 +108,8 @@ export default function ContactPage() {
                 </h2>
                 <p className="text-taupe-deep mb-8 text-[0.9375rem]">
                   {verifiedContact.whatsappUrl
-                    ? "Fill in the form and your enquiry opens in WhatsApp, ready to send."
-                    : "Fill in the form and your enquiry opens in your email app, ready to send."}
+                    ? "Fill in the form, then send it from your own email app or on WhatsApp. Your details are filled in for you."
+                    : "Fill in the form and your email app opens with your details filled in. Just press send."}
                 </p>
                 <EnquiryForm />
               </div>

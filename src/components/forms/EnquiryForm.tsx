@@ -1,10 +1,9 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { WhatsAppIcon } from "@/components/ui/icons";
+import { MailIcon, WhatsAppIcon } from "@/components/ui/icons";
 import { siteConfig, verifiedContact } from "@/config/site";
 import {
   CONSENT_TEXT,
@@ -53,15 +52,15 @@ function Field({
 }
 
 /**
- * Enquiry form. Validated with Zod; on submit it opens WhatsApp with the
- * enquiry pre-filled (when the WhatsApp number is verified in config/site.ts),
- * otherwise it opens the visitor's email app addressed to the studio.
+ * Enquiry form. Validated with Zod. No server or email service is involved:
+ * "Send by email" opens the visitor's own mail app with the enquiry filled in,
+ * addressed to the studio (with a Gmail web fallback link). "Send on WhatsApp"
+ * appears only when the WhatsApp number is verified in config/site.ts.
  * A honeypot field silently drops bot submissions.
  */
 export function EnquiryForm() {
-  const router = useRouter();
-  const [notice, setNotice] = useState<string | null>(null);
-  const viaWhatsApp = Boolean(verifiedContact.whatsappUrl);
+  const [sent, setSent] = useState<{ gmail: string } | null>(null);
+  const whatsappUrl = verifiedContact.whatsappUrl;
 
   const {
     register,
@@ -81,7 +80,7 @@ export function EnquiryForm() {
     },
   });
 
-  const onSubmit = (data: EnquiryData) => {
+  const send = (data: EnquiryData, via: "email" | "whatsapp") => {
     if (data.website) return; // honeypot
 
     const lines = [
@@ -97,22 +96,22 @@ export function EnquiryForm() {
     ].filter((l): l is string => l !== null);
     const text = lines.join("\n");
 
-    if (verifiedContact.whatsappUrl) {
+    if (via === "whatsapp" && whatsappUrl) {
       window.open(
-        `${verifiedContact.whatsappUrl}?text=${encodeURIComponent(text)}`,
+        `${whatsappUrl}?text=${encodeURIComponent(text)}`,
         "_blank",
         "noopener,noreferrer",
       );
-      router.push("/thank-you");
+      setSent(null);
       return;
     }
 
-    // WhatsApp number not verified yet: hand the enquiry to the email app.
-    const subject = encodeURIComponent(`Project enquiry: ${data.projectType}`);
-    window.location.href = `mailto:${siteConfig.email}?subject=${subject}&body=${encodeURIComponent(text)}`;
-    setNotice(
-      `Your email app should now open with your enquiry. If it does not, please write to ${siteConfig.email}.`,
-    );
+    const subject = `Project enquiry: ${data.projectType}`;
+    const to = siteConfig.email;
+    setSent({
+      gmail: `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(to)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`,
+    });
+    window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
   };
 
   const describedBy = (name: keyof EnquiryInput) =>
@@ -121,7 +120,7 @@ export function EnquiryForm() {
   return (
     <form
       id="enquiry-form"
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit((d) => send(d, "email"))}
       noValidate
       className="space-y-6"
     >
@@ -271,22 +270,44 @@ export function EnquiryForm() {
         )}
       </div>
 
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className={cn(
-          "inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-sm px-7 py-3.5 text-[0.8125rem] font-semibold tracking-[0.16em] text-white uppercase transition-colors disabled:opacity-60 sm:w-auto",
-          viaWhatsApp
-            ? "bg-[#17794c] hover:bg-[#10603b]"
-            : "bg-bronze-deep hover:bg-bronze-deeper",
+      <div className="flex flex-col gap-4 sm:flex-row">
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="bg-bronze-deep hover:bg-bronze-deeper inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-sm px-7 py-3.5 text-[0.8125rem] font-semibold tracking-[0.16em] text-white uppercase transition-colors disabled:opacity-60 sm:w-auto"
+        >
+          <MailIcon width={20} height={20} />
+          Send by email
+        </button>
+        {whatsappUrl && (
+          <button
+            type="button"
+            disabled={isSubmitting}
+            onClick={handleSubmit((d) => send(d, "whatsapp"))}
+            className="inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-sm bg-[#17794c] px-7 py-3.5 text-[0.8125rem] font-semibold tracking-[0.16em] text-white uppercase transition-colors hover:bg-[#10603b] disabled:opacity-60 sm:w-auto"
+          >
+            <WhatsAppIcon width={20} height={20} />
+            Send on WhatsApp
+          </button>
         )}
-      >
-        {viaWhatsApp && <WhatsAppIcon width={20} height={20} />}
-        {viaWhatsApp ? "Send on WhatsApp" : "Send enquiry"}
-      </button>
+      </div>
 
       <div role="status" aria-live="polite">
-        {notice && <p className="text-taupe-deep text-sm">{notice}</p>}
+        {sent && (
+          <p className="text-taupe-deep text-sm">
+            Your email app should now open with your enquiry filled in. Just press send.
+            No email app?{" "}
+            <a
+              href={sent.gmail}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-underline text-bronze-deep font-medium"
+            >
+              Open it in Gmail
+            </a>{" "}
+            or write to {siteConfig.email}.
+          </p>
+        )}
       </div>
     </form>
   );

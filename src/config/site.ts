@@ -97,8 +97,6 @@ export const featureFlags = {
    * Set to false ONLY after all stock imagery has been replaced by real work.
    */
   showReferenceBadges: true,
-  /** Cloudflare Turnstile on the enquiry form (needs the env keys). */
-  enableTurnstile: process.env.NEXT_PUBLIC_ENABLE_TURNSTILE === "true",
 } as const;
 
 /* -------------------------------------------------------------------------- */
