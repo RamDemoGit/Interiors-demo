@@ -1,0 +1,338 @@
+@import "tailwindcss";
+
+/* -------------------------------------------------------------------------- */
+/* Design tokens                                                              */
+/* Brand colours come from the brief. "-deep" / "-light" / "-muted" variants   */
+/* are derived ONLY so text and focus rings meet WCAG 2.2 AA contrast:        */
+/*   bronze  #B08B61 on ivory = 2.8:1  -> use bronze-deep (4.8:1) for text     */
+/*   taupe   #857D70 on ivory = 3.6:1  -> use taupe-deep  (5.2:1) for text     */
+/*   bronze  on espresso      = 4.4:1  -> use bronze-light (5.9:1) for text    */
+/* -------------------------------------------------------------------------- */
+:root {
+  --ivory: #f5f1ea;
+  --espresso: #352c27;
+  --bronze: #b08b61;
+  --taupe: #857d70;
+  --white: #ffffff;
+
+  --bronze-deep: #85643d;
+  --bronze-deeper: #6e5030;
+  --bronze-light: #c9a57b;
+  --taupe-deep: #6b645a;
+  --ivory-muted: #d9d2c5;
+  --sand: #ece4d6;
+  --line: rgba(133, 125, 112, 0.28);
+
+  --header-h: 4.25rem;
+  --focus: var(--bronze-deep);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --header-h: 5rem;
+  }
+}
+
+@theme inline {
+  --breakpoint-nav: 74rem;
+  --breakpoint-cta: 87.5rem;
+  --color-ivory: var(--ivory);
+  --color-espresso: var(--espresso);
+  --color-bronze: var(--bronze);
+  --color-taupe: var(--taupe);
+  --color-white: var(--white);
+  --color-bronze-deep: var(--bronze-deep);
+  --color-bronze-deeper: var(--bronze-deeper);
+  --color-bronze-light: var(--bronze-light);
+  --color-taupe-deep: var(--taupe-deep);
+  --color-ivory-muted: var(--ivory-muted);
+  --color-sand: var(--sand);
+  --color-line: var(--line);
+
+  --font-heading: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-body: var(--font-manrope), system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+
+  /* Editorial type scale (fluid) */
+  --text-display: clamp(2.875rem, 1.6rem + 6vw, 7rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.015em;
+  --text-h1: clamp(2.5rem, 1.5rem + 4.4vw, 5.25rem);
+  --text-h1--line-height: 1.05;
+  --text-h1--letter-spacing: -0.012em;
+  --text-h2: clamp(2rem, 1.3rem + 2.8vw, 3.75rem);
+  --text-h2--line-height: 1.1;
+  --text-h3: clamp(1.5rem, 1.2rem + 1.1vw, 2.125rem);
+  --text-h3--line-height: 1.2;
+  --text-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.3125rem);
+  --text-lead--line-height: 1.65;
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--line-height: 1.4;
+  --text-eyebrow--letter-spacing: 0.22em;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Max width 1280px, fluid gutters */
+@utility container-site {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 0.5rem + 3vw, 2.5rem);
+}
+
+@utility container-wide {
+  width: 100%;
+  max-width: 90rem;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 0.5rem + 3vw, 2.5rem);
+}
+
+/* Offset for pages that do not start with a full-bleed hero */
+@utility pt-header {
+  padding-top: var(--header-h);
+}
+
+/* Underline-grow text link (bronze) */
+@utility link-underline {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  padding-bottom: 0.15em;
+  transition: background-size 0.45s var(--ease-out-expo);
+
+  &:hover,
+  &:focus-visible,
+  &[aria-current="page"] {
+    background-size: 100% 1px;
+  }
+}
+
+/* Eyebrow label */
+@utility eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--text-eyebrow);
+  line-height: var(--text-eyebrow--line-height);
+  letter-spacing: var(--text-eyebrow--letter-spacing);
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--focus);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Base                                                                       */
+/* -------------------------------------------------------------------------- */
+@layer base {
+  html {
+    background-color: var(--white);
+    color: var(--espresso);
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--header-h) + 1rem);
+  }
+
+  body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.7;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    text-wrap: balance;
+  }
+
+  h1 {
+    font-size: var(--text-h1);
+    line-height: var(--text-h1--line-height);
+    letter-spacing: var(--text-h1--letter-spacing);
+  }
+  h2 {
+    font-size: var(--text-h2);
+    line-height: var(--text-h2--line-height);
+  }
+  h3 {
+    font-size: var(--text-h3);
+    line-height: var(--text-h3--line-height);
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  ::selection {
+    background-color: var(--bronze);
+    color: var(--white);
+  }
+
+  /* Visible bronze focus ring. Dark sections flip --focus to the light bronze. */
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .on-dark {
+    --focus: var(--bronze-light);
+    color: var(--ivory);
+  }
+
+  /* 44px minimum tap targets for interactive controls */
+  button,
+  [role="button"],
+  input[type="checkbox"] + label {
+    min-height: 2.75rem;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Lenis (inlined so the stylesheet is not a separate request)                */
+/* -------------------------------------------------------------------------- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Reduced motion: remove transitions/animations and smooth scrolling         */
+/* -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Marquee (services ticker). Paused on hover/focus and for reduced motion.   */
+/* -------------------------------------------------------------------------- */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 60s linear infinite;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none !important;
+  }
+}
+
+/* Hide scrollbar utility for horizontal rails */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Hero entrance (CSS only, so it never waits on JS and does not hurt LCP)    */
+/* -------------------------------------------------------------------------- */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes word-up {
+  from {
+    transform: translateY(108%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes settle {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes line-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.anim-rise {
+  animation: rise 0.9s var(--ease-out-expo) both;
+  animation-delay: var(--d, 0s);
+}
+.anim-word {
+  display: inline-block;
+  animation: word-up 1.05s var(--ease-out-expo) both;
+  animation-delay: var(--d, 0s);
+}
+.anim-settle {
+  animation: settle 2.6s var(--ease-out-expo) both;
+}
+.anim-line {
+  transform-origin: left;
+  animation: line-grow 1.4s var(--ease-out-expo) both;
+  animation-delay: var(--d, 0s);
+}
