@@ -3,19 +3,42 @@
 import { useReducedMotion } from "motion/react";
 import Image from "next/image";
 import { useEffect, useState, type CSSProperties } from "react";
+import { RevealGroup, RevealItem } from "@/components/animation/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
+import { EnquiryButton } from "@/components/forms/EnquiryModal";
 import { ReferenceBadge } from "@/components/ui/ReferenceBadge";
 import { siteConfig, workMix } from "@/config/site";
 import { referenceImages, type ReferenceKey } from "@/content/images";
 import { cn } from "@/lib/utils";
+
+type SlideAction = { label: string; href: string } | { label: string; enquiry: true };
+
+const enquire: SlideAction = { label: siteConfig.primaryCta.label, enquiry: true };
+
+function SlideButton({
+  action,
+  variant,
+}: {
+  action: SlideAction;
+  variant?: "primary" | "secondary";
+}) {
+  if ("enquiry" in action) {
+    return <EnquiryButton variant={variant}>{action.label}</EnquiryButton>;
+  }
+  return (
+    <ButtonLink href={action.href} variant={variant}>
+      {action.label}
+    </ButtonLink>
+  );
+}
 
 type Slide = {
   image: ReferenceKey;
   eyebrow: string;
   title: string[];
   text: string;
-  primary: { label: string; href: string };
-  secondary: { label: string; href: string };
+  primary: SlideAction;
+  secondary: SlideAction;
   focal: string;
 };
 
@@ -25,7 +48,7 @@ const slides: Slide[] = [
     eyebrow: `${siteConfig.address.city} \u00b7 Since ${siteConfig.established}`,
     title: ["Designing Spaces.", "Defining Experiences."],
     text: `Commercial, workplace and home interiors from our ${siteConfig.address.locality} studio in ${siteConfig.address.city}, serving ${siteConfig.areaServed.join(" and ")}.`,
-    primary: siteConfig.primaryCta,
+    primary: enquire,
     secondary: { label: "View Projects", href: "/projects" },
     focal: "center 60%",
   },
@@ -38,7 +61,7 @@ const slides: Slide[] = [
       label: "Commercial Interiors",
       href: "/services/commercial-retail-interior-design",
     },
-    secondary: { label: "Enquire Now", href: "/contact#enquiry" },
+    secondary: enquire,
     focal: "center 50%",
   },
   {
@@ -50,7 +73,7 @@ const slides: Slide[] = [
       label: "Residential Interiors",
       href: "/services/residential-interior-design",
     },
-    secondary: { label: siteConfig.primaryCta.label, href: siteConfig.primaryCta.href },
+    secondary: enquire,
     focal: "center 55%",
   },
 ];
@@ -134,7 +157,7 @@ export function Hero() {
         </div>
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(245,241,234,0.96)_0%,rgba(245,241,234,0.88)_40%,rgba(245,241,234,0.2)_100%)] max-md:bg-[linear-gradient(180deg,rgba(245,241,234,0.93)_0%,rgba(245,241,234,0.8)_100%)]"
+          className="from-espresso/35 absolute inset-0 -z-10 bg-gradient-to-t via-transparent to-transparent"
         />
         <div
           aria-hidden="true"
@@ -143,7 +166,7 @@ export function Hero() {
           <ReferenceBadge />
         </div>
 
-        <div className="container-site relative flex min-h-[34rem] flex-col justify-between gap-10 py-12 sm:min-h-[38rem] sm:py-16 lg:min-h-[calc(100svh-var(--header-h)-9rem)] lg:py-20">
+        <div className="container-site relative flex min-h-[27rem] flex-col justify-between gap-6 py-8 sm:min-h-[30rem] sm:py-10 lg:min-h-[33rem] lg:py-12">
           {/* Slide copy stacked in one grid cell so height = tallest slide */}
           <div
             className="grid flex-1 content-center"
@@ -168,13 +191,16 @@ export function Hero() {
                   aria-hidden={!active}
                   inert={!active}
                   className={cn(
-                    "col-start-1 row-start-1 max-w-3xl",
+                    "bg-ivory/92 border-bronze col-start-1 row-start-1 max-w-md self-center border-l-4 p-5 shadow-[0_24px_50px_-28px_rgba(53,44,39,0.55)] backdrop-blur-sm sm:max-w-lg sm:p-7",
                     !active &&
                       "pointer-events-none invisible transition-[visibility] delay-700",
                   )}
                 >
                   <p
-                    className={cn(item, "eyebrow mb-6 flex items-center gap-4")}
+                    className={cn(
+                      item,
+                      "eyebrow mb-3 flex items-center gap-3 !text-[0.6875rem]",
+                    )}
                     style={rise(0.1)}
                   >
                     <span aria-hidden="true" className="bg-bronze h-px w-10" />
@@ -183,7 +209,7 @@ export function Hero() {
                   <Title
                     className={cn(
                       item,
-                      "font-heading text-[clamp(2.5rem,1.1rem+5.2vw,4.75rem)] leading-[1.03] font-medium tracking-[-0.015em]",
+                      "font-heading text-[clamp(1.75rem,1.2rem+2.2vw,2.75rem)] leading-[1.08] font-medium tracking-[-0.01em]",
                     )}
                     style={rise(0.2)}
                   >
@@ -196,20 +222,21 @@ export function Hero() {
                   <p
                     className={cn(
                       item,
-                      "text-espresso/85 mt-7 max-w-lg text-[length:var(--text-lead)] leading-[var(--text-lead--line-height)]",
+                      "text-espresso/85 mt-4 max-w-md text-[0.9375rem] leading-relaxed",
                     )}
                     style={rise(0.35)}
                   >
                     {s.text}
                   </p>
                   <div
-                    className={cn(item, "mt-9 flex flex-col gap-4 sm:flex-row")}
+                    className={cn(
+                      item,
+                      "mt-5 flex flex-col gap-3 sm:flex-row [&_a]:min-h-10 [&_a]:px-5 [&_a]:py-2.5 [&_a]:text-[0.75rem] [&_button]:min-h-10 [&_button]:px-5 [&_button]:py-2.5 [&_button]:text-[0.75rem]",
+                    )}
                     style={rise(0.5)}
                   >
-                    <ButtonLink href={s.primary.href}>{s.primary.label}</ButtonLink>
-                    <ButtonLink href={s.secondary.href} variant="secondary">
-                      {s.secondary.label}
-                    </ButtonLink>
+                    <SlideButton action={s.primary} />
+                    <SlideButton action={s.secondary} variant="secondary" />
                   </div>
                 </div>
               );
@@ -304,22 +331,34 @@ export function Hero() {
       </section>
 
       {/* Facts strip */}
-      <div className="border-line border-y bg-white">
-        <dl className="container-site grid grid-cols-2 lg:grid-cols-4">
+      <div className="bg-sand border-line border-b">
+        <RevealGroup className="container-site grid grid-cols-2 gap-3 py-6 sm:gap-4 lg:grid-cols-4 lg:gap-6 lg:py-9">
           {facts.map((fact) => (
-            <div
-              key={fact.label}
-              className="border-line border-b px-4 py-5 odd:pl-0 max-lg:nth-[n+3]:border-b-0 max-sm:last:col-span-2 lg:border-b-0 lg:border-l lg:px-8 lg:first:border-l-0 lg:first:pl-0"
-            >
-              <dt className="text-taupe-deep text-[0.6875rem] font-semibold tracking-[0.2em] uppercase">
-                {fact.label}
-              </dt>
-              <dd className="font-heading mt-1 text-xl leading-tight sm:text-2xl">
-                {fact.value}
-              </dd>
-            </div>
+            <RevealItem key={fact.label} className="flex">
+              <div
+                tabIndex={0}
+                className="group border-line relative isolate flex min-h-[6.25rem] w-full touch-manipulation flex-col items-center justify-center overflow-hidden border bg-white px-3 py-5 text-center transition-[transform,box-shadow,border-color] duration-500 ease-out outline-none focus-visible:scale-[1.04] focus-visible:shadow-xl active:scale-[1.04] active:shadow-xl sm:px-5 sm:py-6 [@media(hover:hover)]:hover:scale-[1.04] [@media(hover:hover)]:hover:border-[var(--bronze-deep)] [@media(hover:hover)]:hover:shadow-xl"
+              >
+                <span
+                  aria-hidden="true"
+                  className="bg-espresso absolute inset-0 -z-10 origin-bottom scale-y-0 transition-transform duration-[650ms] ease-(--ease-out-expo) group-focus-visible:scale-y-100 group-active:scale-y-100 [@media(hover:hover)]:group-hover:scale-y-100"
+                />
+                <span
+                  aria-hidden="true"
+                  className="bg-bronze absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 transition-transform delay-300 duration-500 group-focus-visible:scale-x-100 group-active:scale-x-100 [@media(hover:hover)]:group-hover:scale-x-100"
+                />
+                <dl className="flex flex-col items-center">
+                  <dt className="text-taupe-deep group-focus-visible:text-bronze-light group-active:text-bronze-light [@media(hover:hover)]:group-hover:text-bronze-light text-[0.6875rem] font-semibold tracking-[0.2em] uppercase transition-colors duration-500">
+                    {fact.label}
+                  </dt>
+                  <dd className="font-heading group-focus-visible:text-ivory group-active:text-ivory [@media(hover:hover)]:group-hover:text-ivory mt-2 text-[1.2rem] leading-tight text-balance transition-colors duration-500 sm:text-2xl">
+                    {fact.value}
+                  </dd>
+                </dl>
+              </div>
+            </RevealItem>
           ))}
-        </dl>
+        </RevealGroup>
       </div>
     </>
   );

@@ -94,9 +94,10 @@ export const featureFlags = {
   showTestimonialQuotes: false,
   /**
    * Shows a "Reference image" chip on every stock/placeholder image.
-   * Set to false ONLY after all stock imagery has been replaced by real work.
+   * Currently off by request. Images are still stock/illustrative until real
+   * project photos are added, so the Disclaimer page says so.
    */
-  showReferenceBadges: true,
+  showReferenceBadges: false,
 } as const;
 
 /* -------------------------------------------------------------------------- */

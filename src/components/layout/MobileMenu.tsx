@@ -6,7 +6,8 @@ import { mainNav } from "@/content/navigation";
 import { siteConfig, verifiedContact } from "@/config/site";
 import { useFocusTrap } from "@/lib/use-focus-trap";
 import { cn } from "@/lib/utils";
-import { ButtonLink } from "@/components/ui/Button";
+import { buttonClasses } from "@/components/ui/Button";
+import { useEnquiry } from "@/components/forms/EnquiryModal";
 import { Logo } from "./Logo";
 
 type Props = {
@@ -24,6 +25,7 @@ type Props = {
 export function MobileMenu({ open, pathname, onClose }: Props) {
   const panelRef = useRef<HTMLDivElement>(null);
   useFocusTrap(panelRef, open, onClose);
+  const { open: openEnquiry } = useEnquiry();
 
   return (
     <div
@@ -93,9 +95,16 @@ export function MobileMenu({ open, pathname, onClose }: Props) {
 
       <div className="bg-sand mt-auto">
         <div className="container-site flex flex-col gap-5 py-8">
-          <ButtonLink href={siteConfig.primaryCta.href} onClick={onClose}>
+          <button
+            type="button"
+            className={buttonClasses()}
+            onClick={() => {
+              onClose();
+              openEnquiry();
+            }}
+          >
             {siteConfig.primaryCta.label}
-          </ButtonLink>
+          </button>
           <div className="text-taupe-deep space-y-1 text-sm">
             <p>
               {siteConfig.address.locality}, {siteConfig.address.city} &middot; Since{" "}

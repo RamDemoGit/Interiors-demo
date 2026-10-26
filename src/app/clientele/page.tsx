@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Marquee } from "@/components/animation/Marquee";
 import { Reveal, RevealGroup, RevealItem } from "@/components/animation/Reveal";
 import { CtaBand } from "@/components/sections/CtaBand";
 import Link from "next/link";
@@ -30,6 +31,8 @@ const groups = projectFilters
     };
   })
   .filter((g) => g.places.length > 0);
+
+const allPlaces = Array.from(new Set(projects.map((p) => p.location)));
 
 /**
  * Clientele. Paragraph copy only: client logos stay hidden until
@@ -72,6 +75,32 @@ export default function ClientelePage() {
         </div>
       </section>
 
+      <section
+        aria-label="Spaces and places we have worked in"
+        className="bg-espresso overflow-hidden py-10 md:py-14"
+      >
+        <p className="eyebrow !text-bronze-light container-site mb-8">
+          Spaces and places, always on the move
+        </p>
+        <div className="text-ivory space-y-6 md:space-y-8">
+          <Marquee
+            label="Kinds of spaces we design"
+            items={groups.map((g) => g.label)}
+            duration={45}
+            itemClassName="text-ivory"
+            dotClassName="bg-bronze-light"
+          />
+          <Marquee
+            label="Locations of our projects"
+            items={allPlaces}
+            reverse
+            duration={55}
+            itemClassName="text-bronze-light italic"
+            dotClassName="bg-ivory/60"
+          />
+        </div>
+      </section>
+
       <section className="bg-ivory border-line border-y py-14 sm:py-20 md:py-28">
         <div className="container-site">
           <SectionHeading
@@ -87,7 +116,7 @@ export default function ClientelePage() {
               <RevealItem key={g.value} as="li" className="flex">
                 <Link
                   href={`/projects?type=${g.value}`}
-                  className="group border-line flex w-full flex-col border bg-white transition-shadow duration-500 hover:shadow-[0_24px_50px_-30px_rgba(53,44,39,0.4)]"
+                  className="group border-line [@media(hover:hover)]:hover:border-bronze relative flex w-full touch-manipulation flex-col border bg-white transition-[transform,box-shadow,border-color] duration-500 ease-out active:scale-[0.99] [@media(hover:hover)]:hover:-translate-y-1.5 [@media(hover:hover)]:hover:shadow-[0_28px_55px_-28px_rgba(53,44,39,0.5)]"
                 >
                   {g.image && (
                     <Photo
@@ -117,7 +146,11 @@ export default function ClientelePage() {
                         </li>
                       ))}
                     </ul>
-                    <span className="text-bronze-deep mt-auto inline-flex items-center gap-3 pt-6 text-[0.8125rem] font-semibold tracking-[0.16em] uppercase">
+                    <span
+                      aria-hidden="true"
+                      className="bg-bronze mt-6 block h-px w-10 transition-all duration-700 ease-(--ease-out-expo) group-active:w-24 [@media(hover:hover)]:group-hover:w-24"
+                    />
+                    <span className="text-bronze-deep mt-auto inline-flex items-center gap-3 pt-5 text-[0.8125rem] font-semibold tracking-[0.16em] uppercase">
                       View projects
                       <svg
                         width="22"

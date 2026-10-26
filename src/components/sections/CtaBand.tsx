@@ -1,5 +1,5 @@
 import { Reveal } from "@/components/animation/Reveal";
-import { ButtonLink } from "@/components/ui/Button";
+import { EnquiryButton } from "@/components/forms/EnquiryModal";
 import { siteConfig } from "@/config/site";
 
 /** Closing enquiry call-to-action. */
@@ -27,9 +27,7 @@ export function CtaBand() {
             .
           </p>
           <div className="relative mt-10 flex justify-center">
-            <ButtonLink href={siteConfig.primaryCta.href}>
-              {siteConfig.primaryCta.label}
-            </ButtonLink>
+            <EnquiryButton>{siteConfig.primaryCta.label}</EnquiryButton>
           </div>
         </Reveal>
       </div>

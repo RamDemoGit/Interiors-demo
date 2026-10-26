@@ -19,7 +19,12 @@ export type ReferenceKey =
   | "hotel"
   | "office"
   | "school"
-  | "retail";
+  | "retail"
+  | "kitchen"
+  | "pooja"
+  | "flooring"
+  | "windows"
+  | "improvement";
 
 export const referenceImages: Record<ReferenceKey, ProjectImage> = {
   living: {
@@ -78,8 +83,38 @@ export const referenceImages: Record<ReferenceKey, ProjectImage> = {
   },
   retail: {
     src: "/reference/retail.jpg",
-    alt: "Retail interior with open shelving, hanging rails and white pendant lamps",
-    width: 1800,
-    height: 1201,
+    alt: "Minimal boutique interior with oak display shelves, a clothing rail and track lighting",
+    width: 1024,
+    height: 768,
+  },
+  kitchen: {
+    src: "/reference/room-kitchen.jpg",
+    alt: "Modular kitchen with ivory and walnut cabinets, quartz counters and glass pendant lights",
+    width: 1024,
+    height: 768,
+  },
+  pooja: {
+    src: "/reference/room-pooja.jpg",
+    alt: "Carved teak pooja unit with brass lamps and a backlit marble panel",
+    width: 1024,
+    height: 768,
+  },
+  flooring: {
+    src: "/reference/room-flooring.jpg",
+    alt: "Living room with wide plank natural oak flooring and tall windows",
+    width: 1024,
+    height: 768,
+  },
+  windows: {
+    src: "/reference/room-windows.jpg",
+    alt: "Window dressed with layered sheer and linen curtains beside an armchair",
+    width: 1024,
+    height: 768,
+  },
+  improvement: {
+    src: "/reference/room-improvement.jpg",
+    alt: "Living room with a false ceiling, cove lighting, chandelier and textured feature wall",
+    width: 1024,
+    height: 768,
   },
 };

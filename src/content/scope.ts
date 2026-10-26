@@ -1,27 +1,52 @@
+import type { ReferenceKey } from "./images";
+
 /**
  * Room-by-room interior scope (residential interior design). Items list the
  * kinds of work covered. No counts, prices or timelines are stated.
  */
-export type ScopeItem = { title: string; items: string[] };
+export type ScopeItem = { title: string; items: string[]; image: ReferenceKey };
 
 export const interiorScope: ScopeItem[] = [
   {
     title: "Modular Kitchen",
+    image: "kitchen",
     items: ["Cabinets", "Countertops", "Accessories", "Appliances"],
   },
   {
     title: "Bedroom Interiors",
+    image: "bedroom",
     items: ["Wardrobes", "Wardrobe accessories", "Cots & back panels", "Dressing units"],
   },
-  { title: "Living Room", items: ["TV units", "Designer partitions", "Feature walls"] },
-  { title: "Pooja Room", items: ["Modern pooja units", "Traditional pooja units"] },
-  { title: "Dining", items: ["Crockery storage", "Dining tables & chairs"] },
+  {
+    title: "Living Room",
+    image: "living",
+    items: ["TV units", "Designer partitions", "Feature walls"],
+  },
+  {
+    title: "Pooja Room",
+    image: "pooja",
+    items: ["Modern pooja units", "Traditional pooja units"],
+  },
+  {
+    title: "Dining",
+    image: "dining",
+    items: ["Crockery storage", "Dining tables & chairs"],
+  },
   {
     title: "Home Improvement",
+    image: "improvement",
     items: ["False ceilings", "Painting", "Lighting", "Wallpaper", "Wall d\u00e9cor"],
   },
-  { title: "Flooring", items: ["Solid wood", "Laminate", "Deck wood"] },
-  { title: "Windows", items: ["Curtains", "Blinds", "Mosquito nets", "Curtain rods"] },
+  {
+    title: "Flooring",
+    image: "flooring",
+    items: ["Solid wood", "Laminate", "Deck wood"],
+  },
+  {
+    title: "Windows",
+    image: "windows",
+    items: ["Curtains", "Blinds", "Mosquito nets", "Curtain rods"],
+  },
 ];
 
 export const consultancyPoints: { title: string; body: string }[] = [

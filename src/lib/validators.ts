@@ -37,7 +37,9 @@ export const enquirySchema = z.object({
     .string()
     .transform(clean)
     .pipe(z.union([z.literal(""), z.email("Please enter a valid email address.")])),
-  projectType: z.enum(PROJECT_TYPES, { error: "Please choose a project type." }),
+  projectType: z
+    .array(z.enum(PROJECT_TYPES))
+    .min(1, "Please choose at least one project type."),
   location: z
     .string()
     .transform(clean)

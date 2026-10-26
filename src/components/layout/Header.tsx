@@ -7,7 +7,7 @@ import { mainNav } from "@/content/navigation";
 import { siteConfig } from "@/config/site";
 import { useLenis } from "@/components/animation/LenisProvider";
 import { ScrollProgress } from "@/components/animation/ScrollProgress";
-import { ButtonLink } from "@/components/ui/Button";
+import { EnquiryButton } from "@/components/forms/EnquiryModal";
 import { cn } from "@/lib/utils";
 import { Logo } from "./Logo";
 import { MobileMenu } from "./MobileMenu";
@@ -107,12 +107,9 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <ButtonLink
-              href={siteConfig.primaryCta.href}
-              className="max-cta:hidden whitespace-nowrap"
-            >
+            <EnquiryButton className="max-cta:hidden whitespace-nowrap">
               {siteConfig.primaryCta.label}
-            </ButtonLink>
+            </EnquiryButton>
 
             <button
               type="button"

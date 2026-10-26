@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
 import { LenisProvider } from "@/components/animation/LenisProvider";
+import { EnquiryModalProvider } from "@/components/forms/EnquiryModal";
 import { ConsentManager } from "@/components/layout/ConsentManager";
 import { ContactDock } from "@/components/layout/ContactDock";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { SkipLink } from "@/components/layout/SkipLink";
-import { TopBar } from "@/components/layout/TopBar";
 import { MotionProvider } from "@/components/animation/MotionProvider";
 import { SITE_URL, siteConfig } from "@/config/site";
 import "@/styles/globals.css";
@@ -59,14 +59,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SkipLink />
         <LenisProvider>
           <MotionProvider>
-            <TopBar />
-            <Header />
-            <main id="main" tabIndex={-1} className="outline-none">
-              {children}
-            </main>
-            <Footer />
-            <ContactDock />
-            <ConsentManager />
+            <EnquiryModalProvider>
+              <Header />
+              <main id="main" tabIndex={-1} className="outline-none">
+                {children}
+              </main>
+              <Footer />
+              <ContactDock />
+              <ConsentManager />
+            </EnquiryModalProvider>
           </MotionProvider>
         </LenisProvider>
       </body>

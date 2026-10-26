@@ -176,7 +176,7 @@ export const legalDocs: LegalDoc[] = [
         heading: "Portfolio and images",
         paragraphs: [
           "Projects shown on this website are labelled either as a photograph (of completed work) or as a design visualization (a rendering of a proposed or conceptual design). A design visualization is not a photograph of a completed space, and the finished result may differ.",
-          "Some images on the website may be reference or illustrative images and are labelled as such.",
+          "Some images on the website are stock or illustrative images and do not show our completed work.",
         ],
       },
       {
@@ -318,9 +318,9 @@ export const legalDocs: LegalDoc[] = [
       },
       {
         id: "reference-images",
-        heading: "Reference images",
+        heading: "Illustrative images",
         paragraphs: [
-          'Images marked "Reference image" are illustrative and do not show our completed work.',
+          "Some images on this website are stock or illustrative images used to show a style or type of space. They do not show our completed work unless a project is labelled as a Photograph.",
         ],
       },
       {

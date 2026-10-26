@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { EnquiryTrigger } from "@/components/forms/EnquiryModal";
 import type { ReactNode } from "react";
 import { CalendarIcon, PhoneIcon, WhatsAppIcon } from "@/components/ui/icons";
 import { contactActions, type ContactAction } from "@/lib/contact";
@@ -30,6 +31,13 @@ function ActionLink({
     className,
     "aria-label": action.label,
   };
+  if (action.key === "book") {
+    return (
+      <EnquiryTrigger className={className} ariaLabel={action.label}>
+        {children}
+      </EnquiryTrigger>
+    );
+  }
   return action.external ? (
     <a
       href={action.href}
