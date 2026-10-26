@@ -32,7 +32,14 @@ export function ProjectCard({
       className={cn("group block", className)}
       aria-label={`${project.title}, ${project.location}`}
     >
-      <Photo image={image} ratio={ratio} sizes={sizes} zoomOnHover reveal={reveal} />
+      <Photo
+        image={image}
+        ratio={ratio}
+        sizes={sizes}
+        zoomOnHover
+        reveal={reveal}
+        className="sheen"
+      />
       <div className="mt-5">
         <div className="flex items-start justify-between gap-4">
           <h3 className="font-heading text-[1.5rem] leading-tight md:text-[1.75rem]">

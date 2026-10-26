@@ -28,7 +28,10 @@ export function FeaturedProjects() {
               key={project.slug}
               className={i % 3 === 1 ? "lg:mt-16" : i % 3 === 2 ? "lg:mt-32" : undefined}
             >
-              <Reveal delay={(i % 3) * 0.08}>
+              <Reveal
+                delay={(i % 3) * 0.08}
+                from={i % 3 === 0 ? "left" : i % 3 === 2 ? "right" : "scale"}
+              >
                 <ProjectCard
                   project={project}
                   ratio={i % 2 === 0 ? "aspect-[4/5]" : "aspect-[16/10]"}

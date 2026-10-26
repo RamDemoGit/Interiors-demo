@@ -26,6 +26,11 @@ export default function HomePage() {
       <ServicesGrid />
       <ScopeOfWork />
       <Consultancy />
+      <ScrollTextBand
+        className="bg-white"
+        top="Commercial · Workplace · Retail · Hospitality"
+        bottom="Homes · Renovation · Architecture · Chennai"
+      />
       <FeaturedProjects />
       <Founder />
       <CtaBand />

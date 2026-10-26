@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
+import { HeroParallax } from "@/components/animation/ScrollEffects";
 import { referenceImages, type ReferenceKey } from "@/content/images";
 import type { ProjectImage } from "@/content/types";
 
@@ -34,16 +35,18 @@ export function PageHero({
 
   return (
     <section className="bg-espresso relative isolate overflow-hidden">
-      <Image
-        src={bg.src}
-        alt=""
-        fill
-        priority
-        quality={90}
-        sizes="100vw"
-        className="anim-settle -z-20 object-cover"
-        style={{ objectPosition: focal ?? "center 55%" }}
-      />
+      <HeroParallax className="-z-20">
+        <Image
+          src={bg.src}
+          alt=""
+          fill
+          priority
+          quality={90}
+          sizes="100vw"
+          className="anim-settle object-cover"
+          style={{ objectPosition: focal ?? "center 55%" }}
+        />
+      </HeroParallax>
       <div
         aria-hidden="true"
         className="from-espresso/35 absolute inset-0 -z-10 bg-gradient-to-t via-transparent to-transparent"

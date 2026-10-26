@@ -148,6 +148,7 @@
     flex-direction: column;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
   }
 
   main {
@@ -335,4 +336,57 @@ html.lenis body {
   transform-origin: left;
   animation: line-grow 1.4s var(--ease-out-expo) both;
   animation-delay: var(--d, 0s);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Scroll / page motion helpers                                                */
+/* -------------------------------------------------------------------------- */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--bronze);
+}
+@keyframes page-in {
+  from {
+    opacity: 0.4;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.page-in {
+  animation: page-in 0.6s var(--ease-out-expo) both;
+}
+@keyframes shimmer-sweep {
+  from {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+  to {
+    transform: translateX(220%) skewX(-18deg);
+  }
+}
+/* A soft light streak that crosses a card on hover (desktop / touch press) */
+.sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.28), transparent);
+  transform: translateX(-120%) skewX(-18deg);
+  pointer-events: none;
+}
+@media (hover: hover) {
+  .sheen:hover::after {
+    animation: shimmer-sweep 0.9s var(--ease-out-expo);
+  }
+}
+.sheen:active::after {
+  animation: shimmer-sweep 0.9s var(--ease-out-expo);
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-in,
+  .sheen::after {
+    animation: none !important;
+  }
 }

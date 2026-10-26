@@ -19,7 +19,7 @@ export function ServiceCard({
   return (
     <Link
       href={`/services/${service.slug}`}
-      className="group bg-espresso relative block aspect-[4/5] touch-manipulation overflow-hidden transition-[transform,box-shadow] duration-500 ease-out outline-none focus-visible:-translate-y-1.5 focus-visible:shadow-2xl active:scale-[0.985] [@media(hover:hover)]:hover:-translate-y-1.5 [@media(hover:hover)]:hover:shadow-[0_30px_60px_-28px_rgba(53,44,39,0.65)]"
+      className="group sheen bg-espresso relative block aspect-[4/5] touch-manipulation overflow-hidden transition-[transform,box-shadow] duration-500 ease-out outline-none focus-visible:-translate-y-1.5 focus-visible:shadow-2xl active:scale-[0.985] [@media(hover:hover)]:hover:-translate-y-1.5 [@media(hover:hover)]:hover:shadow-[0_30px_60px_-28px_rgba(53,44,39,0.65)]"
     >
       <Image
         src={image.src}

@@ -12,7 +12,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { EnquiryForm } from "@/components/forms/EnquiryForm";
+import dynamic from "next/dynamic";
 import { buttonClasses } from "@/components/ui/Button";
 import { siteConfig } from "@/config/site";
 import { useFocusTrap } from "@/lib/use-focus-trap";
@@ -24,6 +24,19 @@ const EnquiryContext = createContext<Ctx>({ open: () => {}, close: () => {} });
 export const useEnquiry = () => useContext(EnquiryContext);
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+
+/** Form code (react-hook-form + zod) is only downloaded when the modal opens. */
+const EnquiryForm = dynamic(
+  () => import("@/components/forms/EnquiryForm").then((mod) => mod.EnquiryForm),
+  {
+    ssr: false,
+    loading: () => (
+      <p role="status" className="text-taupe-deep py-10 text-sm">
+        Loading form&hellip;
+      </p>
+    ),
+  },
+);
 
 const steps = [
   "Fill in the form",

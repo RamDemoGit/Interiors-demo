@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useState, type CSSProperties } from "react";
 import { RevealGroup, RevealItem } from "@/components/animation/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
+import { HeroParallax } from "@/components/animation/ScrollEffects";
 import { EnquiryButton } from "@/components/forms/EnquiryModal";
 import { ReferenceBadge } from "@/components/ui/ReferenceBadge";
 import { siteConfig, workMix } from "@/config/site";
@@ -128,7 +129,7 @@ export function Hero() {
         onBlur={() => setHovered(false)}
       >
         {/* Image layer (crossfade) */}
-        <div className="absolute inset-0 -z-20" aria-hidden="true">
+        <HeroParallax className="-z-20">
           {slides.map((s, i) => {
             const img = referenceImages[s.image];
             return (
@@ -154,7 +155,7 @@ export function Hero() {
               </div>
             );
           })}
-        </div>
+        </HeroParallax>
         <div
           aria-hidden="true"
           className="from-espresso/35 absolute inset-0 -z-10 bg-gradient-to-t via-transparent to-transparent"

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ScrollTextBand } from "@/components/animation/ScrollEffects";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { PracticeMix } from "@/components/sections/PracticeMix";
 import { ServicesGrid } from "@/components/sections/ServicesGrid";
@@ -23,6 +24,11 @@ export default function ServicesPage() {
       />
       <PracticeMix />
       <ServicesGrid heading={false} />
+      <ScrollTextBand
+        className="bg-white"
+        top="Interiors · Architecture · Concepts"
+        bottom="Commercial · Homes · Renovation"
+      />
       <CtaBand />
     </>
   );

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Reveal, RevealGroup, RevealItem } from "@/components/animation/Reveal";
+import { CountUp } from "@/components/animation/ScrollEffects";
 import { MixBar } from "@/components/sections/MixBar";
 import { ArrowLink } from "@/components/ui/ArrowLink";
 import { Photo } from "@/components/ui/Photo";
@@ -62,9 +63,11 @@ export function PracticeMix() {
           <Reveal delay={0.1} className="lg:col-span-6">
             <div className="mb-4 flex items-end justify-between gap-6">
               <p className="font-heading leading-none">
-                <span className="text-[clamp(3.25rem,2rem+5vw,5.5rem)]">
-                  {workMix.commercial}%
-                </span>
+                <CountUp
+                  to={workMix.commercial}
+                  suffix="%"
+                  className="text-[clamp(3.25rem,2rem+5vw,5.5rem)]"
+                />
                 <span className="font-body text-taupe-deep ml-2 block text-sm font-semibold tracking-[0.16em] uppercase sm:inline">
                   Commercial
                 </span>

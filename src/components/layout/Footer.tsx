@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Reveal } from "@/components/animation/Reveal";
 import { EnquiryButton } from "@/components/forms/EnquiryModal";
 import { siteConfig, socialLinks, verifiedContact } from "@/config/site";
 import { footerExploreLinks, legalLinks, serviceLinks } from "@/content/navigation";
@@ -153,6 +154,15 @@ export function Footer() {
           )}
         </div>
       </div>
+
+      <Reveal y={40} className="container-site overflow-hidden pb-6 lg:pb-10">
+        <p
+          aria-hidden="true"
+          className="font-heading text-center text-[clamp(2.4rem,10.5vw,9.5rem)] leading-none font-semibold tracking-[0.06em] whitespace-nowrap text-transparent uppercase select-none [-webkit-text-stroke:1px_rgba(245,241,234,0.3)]"
+        >
+          Lahima In-Des
+        </p>
+      </Reveal>
 
       <div className="border-ivory/15 border-t">
         <div className="container-site text-ivory/70 flex flex-col gap-4 pt-6 pb-24 text-sm lg:flex-row lg:items-center lg:justify-between lg:pb-6">

@@ -34,7 +34,7 @@ export function ScopeOfWork() {
             return (
               <RevealItem key={room.title} as="li" className="flex">
                 <article className="group border-line relative flex w-full touch-manipulation flex-col overflow-hidden border bg-white transition-[transform,box-shadow,border-color] duration-500 ease-out active:scale-[0.985] [@media(hover:hover)]:hover:-translate-y-1.5 [@media(hover:hover)]:hover:border-[var(--bronze)] [@media(hover:hover)]:hover:shadow-[0_28px_55px_-30px_rgba(53,44,39,0.55)]">
-                  <div className="bg-sand relative aspect-[4/3] overflow-hidden">
+                  <div className="sheen bg-sand relative aspect-[4/3] overflow-hidden">
                     <Image
                       src={image.src}
                       alt={image.alt}
