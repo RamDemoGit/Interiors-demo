@@ -1,4 +1,5 @@
 import { Marquee } from "@/components/animation/Marquee";
+import { ScrollTextBand } from "@/components/animation/ScrollEffects";
 import { Consultancy } from "@/components/sections/Consultancy";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { FeaturedProjects } from "@/components/sections/FeaturedProjects";

@@ -2,13 +2,11 @@
 
 Next.js 15 (App Router) · React 19 · TypeScript strict · Tailwind CSS v4 · pnpm.
 
-> Status: **Phase 1 (Foundation)** complete. See the build phases in the project brief.
-
 ## Setup
 
 ```bash
 pnpm install
-cp .env.example .env.local   # then fill in values
+cp .env.example .env.local   # optional: set NEXT_PUBLIC_SITE_URL / NEXT_PUBLIC_GA_ID
 pnpm dev                     # http://localhost:3000
 ```
 
@@ -19,12 +17,19 @@ Scripts: `pnpm dev` · `pnpm build` · `pnpm lint` · `pnpm typecheck` · `pnpm 
 | Path                             | Purpose                                                        |
 | -------------------------------- | -------------------------------------------------------------- |
 | `src/config/site.ts`             | Verified business facts, `TODO_VERIFY_*` values, feature flags |
-| `src/content/*.ts`               | Typed content (copy from the content master document)          |
-| `src/styles/globals.css`         | Design tokens (Tailwind v4 `@theme`), base styles              |
-| `src/components/layout`          | Header, mobile menu, footer, skip link, floating CTA           |
-| `src/components/animation`       | Lenis provider (lazy, reduced-motion aware)                    |
-| `src/lib`                        | Helpers (`seo.ts`, `utils.ts`, focus trap)                     |
+| `src/content/*.ts`               | Typed content (services, projects, scope, legal, images)       |
+| `src/styles/globals.css`         | Design tokens (Tailwind v4 `@theme`), base styles, motion CSS  |
+| `src/components/layout`          | Header, mobile menu, footer, contact dock, cookie consent      |
+| `src/components/animation`       | Reveal, scroll effects, marquee, Lenis smooth scroll           |
+| `src/components/forms`           | Enquiry form, enquiry modal, multi-select dropdown             |
+| `src/lib`                        | Helpers (`seo.ts`, `utils.ts`, validators, focus trap)         |
 | `scripts/check-placeholders.mjs` | Build guard for placeholder project images                     |
+
+## Enquiry form
+
+No server or email service is used. "Send by email" opens the visitor's own email app
+with the enquiry filled in (with a Gmail web fallback). WhatsApp sending appears only when
+a verified WhatsApp number is set in `src/config/site.ts`.
 
 ## Publishing verified contact details
 
@@ -33,10 +38,16 @@ Open `src/config/site.ts`. Every unconfirmed item is a `TODO_VERIFY_*` constant 
 (phone, WhatsApp, address, map URL, hours, socials). Search the repo for `TODO_VERIFY_`
 to list everything outstanding.
 
-## Placeholder images
+## Images
 
-Placeholder project images live in `public/projects/<slug>/` with a `.placeholder` marker.
-`pnpm build` warns while any remain and **fails on Vercel production** unless
-`ALLOW_PLACEHOLDER_IMAGES=true`. Delete the marker after adding real images.
+Photos in `public/reference/` are stock / AI-generated illustrations, not completed Lahima
+projects. Replace them with real project photographs (and update `src/content/images.ts`
+and `src/content/projects.ts`) before launch.
 
-_Adding a project, adding an area page and the full env reference are completed in later phases._
+## Deploying on Vercel
+
+Use **one** Vercel project for this repo (`RamDemoGit/Interiors-demo`, branch `main`).
+Framework preset: Next.js. Root directory: repository root. Install/build commands: leave
+the defaults (`.npmrc` and `pnpm-workspace.yaml` already handle the install policy).
+Set `NEXT_PUBLIC_SITE_URL` to the final public URL under Project Settings > Environment
+Variables. Every push to `main` redeploys; other branches create preview deployments only.

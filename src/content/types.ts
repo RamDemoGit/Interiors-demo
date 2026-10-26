@@ -55,40 +55,4 @@ export type Service = {
   relatedFaqs: string[];
 };
 
-export type Faq = {
-  id: string;
-  question: string;
-  answer: string;
-  /** Service slugs this FAQ belongs to, for related-FAQ blocks. */
-  services?: string[];
-};
-
-export type AreaPage = {
-  slug: string;
-  name: string;
-  seoTitle: string;
-  seoDescription: string;
-  h1: string;
-  /** Unique, area-specific body sections (min. 450 words in total). */
-  sections: { heading: string; body: string[] }[];
-  /** Project slugs from the nearby locations. */
-  relatedProjects: string[];
-  relatedServices: string[];
-  faqs: { question: string; answer: string }[];
-};
-
 export type NavItem = { label: string; href: string };
-
-/** Enquiry lead as persisted by a `LeadStore` (implemented in Phase 6). */
-export type Lead = {
-  id: string;
-  createdAt: string;
-  name: string;
-  email: string;
-  phone?: string;
-  projectType?: string;
-  location?: string;
-  message: string;
-  consent: { given: boolean; text: string; timestamp: string };
-  meta: { ip: string; userAgent?: string; sourcePath?: string };
-};
