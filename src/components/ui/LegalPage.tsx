@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Reveal } from "@/components/animation/Reveal";
+import { LegalToc } from "@/components/ui/LegalToc";
 import { PageHero } from "@/components/ui/PageHero";
 import { LEGAL_LAST_UPDATED, legalDocs, type LegalDoc } from "@/content/legal";
 import { cn } from "@/lib/utils";
@@ -22,21 +23,7 @@ export function LegalPage({ doc }: { doc: LegalDoc }) {
             <div className="lg:sticky lg:top-28">
               <p className="eyebrow mb-4">On this page</p>
               <nav aria-label="On this page">
-                <ol className="border-line space-y-0.5 border-l">
-                  {doc.sections.map((s, i) => (
-                    <li key={s.id}>
-                      <a
-                        href={`#${s.id}`}
-                        className="text-taupe-deep hover:text-bronze-deep hover:border-bronze-deep -ml-px flex min-h-9 items-center gap-3 border-l border-transparent py-1 pl-4 text-sm transition-colors"
-                      >
-                        <span className="text-bronze-deep text-xs tabular-nums">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        {s.heading}
-                      </a>
-                    </li>
-                  ))}
-                </ol>
+                <LegalToc sections={doc.sections} />
               </nav>
 
               <p className="eyebrow mt-10 mb-4">Related</p>

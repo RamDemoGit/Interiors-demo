@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Reveal } from "@/components/animation/Reveal";
+import { Reveal, RevealGroup, RevealItem } from "@/components/animation/Reveal";
 import { EnquiryForm } from "@/components/forms/EnquiryForm";
 import { PageHero } from "@/components/ui/PageHero";
 import { siteConfig, verifiedContact } from "@/config/site";
@@ -68,6 +68,7 @@ export default function ContactPage() {
         lead={`Tell us about your space. The studio is in ${address.locality}, ${address.city}, and works across ${siteConfig.areaServed.join(" and ")}.`}
         crumbs={[{ label: "Contact" }]}
         image="compact"
+        variant="slide"
       />
 
       <section className="bg-ivory py-14 sm:py-20 md:py-28">
@@ -80,19 +81,29 @@ export default function ContactPage() {
             <h2 className="text-[clamp(1.9rem,1.3rem+2vw,2.75rem)]">
               Visit or write to us.
             </h2>
-            <dl className="border-line mt-8 divide-y divide-[var(--line)] border-y bg-white/50">
-              {rows.map((row) => (
-                <div key={row.label} className="px-5 py-5">
-                  <dt className="eyebrow mb-2">{row.label}</dt>
-                  <dd className="font-heading text-[1.4rem] leading-snug sm:text-2xl">
-                    {row.content}
-                  </dd>
-                </div>
-              ))}
-            </dl>
+            <RevealGroup className="border-line mt-8 border-t bg-white/50">
+              <dl className="contents">
+                {rows.map((row) => (
+                  <RevealItem
+                    key={row.label}
+                    effect="slide"
+                    className="group border-line relative border-b px-5 py-5"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="bg-bronze absolute top-0 left-0 h-full w-[3px] origin-top scale-y-0 transition-transform duration-500 ease-(--ease-out-expo) [@media(hover:hover)]:group-hover:scale-y-100"
+                    />
+                    <dt className="eyebrow mb-2">{row.label}</dt>
+                    <dd className="font-heading text-[1.4rem] leading-snug sm:text-2xl">
+                      {row.content}
+                    </dd>
+                  </RevealItem>
+                ))}
+              </dl>
+            </RevealGroup>
           </Reveal>
 
-          <Reveal delay={0.1} className="lg:col-span-7">
+          <Reveal delay={0.1} from="right" className="lg:col-span-7">
             <div
               id="enquiry"
               className="relative scroll-mt-28 bg-white p-6 shadow-[0_30px_60px_-40px_rgba(53,44,39,0.35)] sm:p-10"

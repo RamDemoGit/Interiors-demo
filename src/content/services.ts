@@ -27,7 +27,7 @@ export const services: ServiceSummary[] = [
     slug: "commercial-retail-interior-design",
     name: "Commercial & Retail Interior Design",
     segment: "commercial",
-    image: "retail",
+    image: "showroom",
   },
   {
     slug: "office-workplace-interiors",
@@ -39,37 +39,37 @@ export const services: ServiceSummary[] = [
     slug: "hospitality-cafe-leisure-spaces",
     name: "Hospitality, Café & Leisure Spaces",
     segment: "commercial",
-    image: "hotel",
+    image: "restaurant",
   },
   {
     slug: "educational-institutional-interiors",
     name: "Educational & Institutional Interiors",
     segment: "commercial",
-    image: "school",
+    image: "institution",
   },
   {
     slug: "architectural-design-spatial-concepts",
     name: "Architectural Design & Spatial Concepts",
     segment: "both",
-    image: "compact",
+    image: "architectureConcept",
   },
   {
     slug: "residential-interior-design",
     name: "Residential Interior Design",
     segment: "homes",
-    image: "living",
+    image: "residentialHome",
   },
   {
     slug: "renovation-interior-transformation",
     name: "Renovation & Interior Transformation",
     segment: "both",
-    image: "bedroom",
+    image: "renovation",
   },
   {
     slug: "custom-interior-details-material-concepts",
     name: "Custom Interior Details & Material Concepts",
     segment: "both",
-    image: "dining",
+    image: "customDetails",
   },
 ];
 

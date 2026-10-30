@@ -20,7 +20,7 @@ export function Consultancy() {
           />
           <Reveal delay={0.1} className="mt-10 hidden lg:block">
             <Photo
-              image={referenceImages.compact}
+              image={referenceImages.urbanOasis}
               ratio="aspect-[4/3]"
               sizes="(min-width: 1024px) 40vw, 100vw"
               parallax

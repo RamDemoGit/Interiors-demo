@@ -33,6 +33,10 @@ export function ServiceCard({
         className="from-espresso/90 via-espresso/25 absolute inset-0 bg-gradient-to-t to-transparent transition-opacity duration-500 group-focus-visible:opacity-100 [@media(hover:hover)]:opacity-90 [@media(hover:hover)]:group-hover:opacity-100"
       />
 
+      <span
+        aria-hidden="true"
+        className="border-ivory/70 pointer-events-none absolute inset-3 scale-[0.94] border opacity-0 transition-[transform,opacity] duration-700 ease-(--ease-out-expo) group-focus-visible:scale-100 group-focus-visible:opacity-100 group-active:scale-100 group-active:opacity-100 [@media(hover:hover)]:group-hover:scale-100 [@media(hover:hover)]:group-hover:opacity-100"
+      />
       <div className="absolute inset-x-0 top-0 flex items-start justify-between p-5">
         <span className="font-heading text-ivory text-[2.75rem] leading-none drop-shadow-sm">
           {String(index + 1).padStart(2, "0")}

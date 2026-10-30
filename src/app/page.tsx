@@ -6,6 +6,7 @@ import { FeaturedProjects } from "@/components/sections/FeaturedProjects";
 import { Founder } from "@/components/sections/Founder";
 import { PracticeMix } from "@/components/sections/PracticeMix";
 import { Hero } from "@/components/sections/Hero";
+import { PreferredBrands } from "@/components/sections/PreferredBrands";
 import { ScopeOfWork } from "@/components/sections/ScopeOfWork";
 import { ServicesGrid } from "@/components/sections/ServicesGrid";
 import { Welcome } from "@/components/sections/Welcome";
@@ -33,6 +34,7 @@ export default function HomePage() {
         bottom="Homes · Renovation · Architecture · Chennai"
       />
       <FeaturedProjects />
+      <PreferredBrands />
       <Founder />
       <CtaBand />
     </>

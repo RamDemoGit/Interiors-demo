@@ -1,6 +1,5 @@
+import Image from "next/image";
 import Link from "next/link";
-import { Reveal } from "@/components/animation/Reveal";
-import { EnquiryButton } from "@/components/forms/EnquiryModal";
 import { siteConfig, socialLinks, verifiedContact } from "@/config/site";
 import { footerExploreLinks, legalLinks, serviceLinks } from "@/content/navigation";
 import { BackToTop } from "./BackToTop";
@@ -14,75 +13,57 @@ const SOCIAL_LABELS: Record<string, string> = {
 };
 
 const linkClass =
-  "text-ivory/80 hover:text-bronze-light group/link inline-flex min-h-9 items-center gap-0 text-[0.9375rem] transition-all duration-300 hover:gap-2";
+  "text-ivory/75 hover:text-bronze-light inline-flex min-h-8 items-center text-sm transition-colors";
 
 const headingClass =
-  "font-body text-bronze-light mb-5 text-xs font-semibold tracking-[0.22em] uppercase";
-
-function FooterLink({ href, children }: { href: string; children: string }) {
-  return (
-    <Link href={href} className={linkClass}>
-      <span
-        aria-hidden="true"
-        className="bg-bronze-light h-px w-0 transition-all duration-300 group-hover/link:w-4"
-      />
-      {children}
-    </Link>
-  );
-}
+  "font-body text-bronze-light mb-2 text-[0.6875rem] font-semibold tracking-[0.2em] uppercase";
 
 /**
- * Footer links to every page (internal-linking requirement). Phone, full
- * address, hours and socials render only when verified in `config/site.ts`.
+ * Compact footer: brand, the pages, the services and the contact details in
+ * one short block, then the legal line. Links to every page (internal-linking
+ * requirement). Phone, full address, hours and socials render only when
+ * verified in `config/site.ts`.
  */
 export function Footer() {
   const { address } = siteConfig;
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-espresso text-ivory relative overflow-hidden">
-      {/* Enquiry band */}
-      <div className="border-ivory/15 border-b">
-        <div className="container-site flex flex-col gap-8 py-12 md:flex-row md:items-center md:justify-between md:py-16">
-          <div className="max-w-2xl">
-            <p className="eyebrow !text-bronze-light mb-4">Start a conversation</p>
-            <p className="font-heading text-ivory text-[clamp(1.75rem,1.2rem+2vw,2.75rem)] leading-[1.12]">
-              Planning a home, workplace or space?
-            </p>
-          </div>
-          <EnquiryButton tone="light" className="shrink-0 self-start md:self-auto">
-            {siteConfig.primaryCta.label}
-          </EnquiryButton>
-        </div>
+    <footer className="bg-espresso text-ivory border-ivory/10 relative isolate overflow-hidden border-t">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+        <Image
+          src="/reference/footer-bg.jpg"
+          alt=""
+          fill
+          sizes="100vw"
+          quality={60}
+          className="kb object-cover"
+          style={
+            {
+              "--kb-s": 1.12,
+              "--kb-x": "-2%",
+              "--kb-y": "0%",
+              "--kb-t": "26s",
+            } as React.CSSProperties
+          }
+        />
+        <span className="from-espresso/90 via-espresso/55 to-espresso/80 absolute inset-0 bg-gradient-to-b" />
+        <span className="footer-glow footer-glow-a" />
+        <span className="footer-glow footer-glow-b" />
+        <span className="footer-sweep" />
       </div>
-
-      <div className="container-site grid gap-12 py-14 sm:grid-cols-2 md:py-20 lg:grid-cols-12 lg:gap-10">
+      <div className="container-site grid gap-8 pt-10 pb-6 sm:grid-cols-2 lg:grid-cols-12 lg:gap-6">
         <div className="sm:col-span-2 lg:col-span-4">
           <Link
             href="/"
             aria-label={`${siteConfig.legalName} - Home`}
-            className="group inline-flex items-center gap-3"
+            className="font-heading text-ivory inline-block text-[1.25rem] font-semibold tracking-[0.14em] uppercase"
           >
-            <span
-              aria-hidden="true"
-              className="font-heading border-bronze-light text-bronze-light group-hover:bg-bronze-light group-hover:text-espresso grid h-11 w-11 place-items-center border text-[1.6rem] leading-none font-semibold transition-colors duration-500"
-            >
-              L
-            </span>
-            <span className="flex flex-col leading-none">
-              <span className="font-heading text-ivory text-[1.35rem] font-semibold tracking-[0.14em] uppercase">
-                Lahima <span className="text-bronze-light">In-Des</span>
-              </span>
-              <span className="text-ivory/70 mt-1.5 text-[0.5625rem] font-semibold tracking-[0.3em] uppercase">
-                {siteConfig.shortDescriptor}
-              </span>
-            </span>
+            Lahima <span className="text-bronze-light">In-Des</span>
           </Link>
-          <p className="font-heading text-ivory mt-8 max-w-xs text-2xl leading-snug">
-            {siteConfig.tagline}
-          </p>
-          <p className="text-ivory/70 mt-4 text-sm">
-            Founded by {siteConfig.founder} &middot; Established {siteConfig.established}
+          <p className="text-ivory/70 mt-2 max-w-xs text-sm">
+            {siteConfig.shortDescriptor}. Founded by {siteConfig.founder}, established{" "}
+            {siteConfig.established}.
           </p>
         </div>
 
@@ -91,7 +72,9 @@ export function Footer() {
           <ul>
             {footerExploreLinks.map((link) => (
               <li key={link.href}>
-                <FooterLink href={link.href}>{link.label}</FooterLink>
+                <Link href={link.href} className={linkClass}>
+                  {link.label}
+                </Link>
               </li>
             ))}
           </ul>
@@ -102,7 +85,9 @@ export function Footer() {
           <ul>
             {serviceLinks.map((link) => (
               <li key={link.href}>
-                <FooterLink href={link.href}>{link.label}</FooterLink>
+                <Link href={link.href} className={linkClass}>
+                  {link.label}
+                </Link>
               </li>
             ))}
           </ul>
@@ -110,7 +95,7 @@ export function Footer() {
 
         <div className="lg:col-span-3">
           <h2 className={headingClass}>Contact</h2>
-          <address className="text-ivory/80 space-y-3 text-[0.9375rem] not-italic">
+          <address className="text-ivory/75 space-y-1.5 text-sm not-italic">
             <p>
               {verifiedContact.streetAddress ? `${verifiedContact.streetAddress}, ` : ""}
               {address.locality}, {address.city}
@@ -137,14 +122,14 @@ export function Footer() {
             {verifiedContact.officeHours && <p>{verifiedContact.officeHours}</p>}
           </address>
           {socialLinks.length > 0 && (
-            <ul className="mt-5 flex flex-wrap gap-2">
+            <ul className="mt-3 flex flex-wrap gap-2">
               {socialLinks.map(({ network, url }) => (
                 <li key={network}>
                   <a
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="border-ivory/30 hover:bg-ivory hover:text-espresso inline-flex min-h-9 items-center border px-4 text-sm transition-colors"
+                    className="border-ivory/30 hover:bg-ivory hover:text-espresso inline-flex min-h-8 items-center border px-3 text-sm transition-colors"
                   >
                     {SOCIAL_LABELS[network] ?? network}
                   </a>
@@ -155,38 +140,29 @@ export function Footer() {
         </div>
       </div>
 
-      <Reveal y={40} className="container-site overflow-hidden pb-6 lg:pb-10">
-        <p
-          aria-hidden="true"
-          className="font-heading text-center text-[clamp(2.4rem,10.5vw,9.5rem)] leading-none font-semibold tracking-[0.06em] whitespace-nowrap text-transparent uppercase select-none [-webkit-text-stroke:1px_rgba(245,241,234,0.3)]"
-        >
-          Lahima In-Des
-        </p>
-      </Reveal>
-
       <div className="border-ivory/15 border-t">
-        <div className="container-site text-ivory/70 flex flex-col gap-4 pt-6 pb-24 text-sm lg:flex-row lg:items-center lg:justify-between lg:pb-6">
+        <div className="container-site text-ivory/65 flex flex-col gap-2 pt-4 pb-24 text-[0.8125rem] lg:flex-row lg:items-center lg:justify-between lg:pb-4">
           <p>
             &copy; {year} {siteConfig.legalName}
           </p>
           <nav aria-label="Legal">
-            <ul className="flex flex-wrap gap-x-6 gap-y-1">
+            <ul className="flex flex-wrap gap-x-5 gap-y-0.5">
               {legalLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="hover:text-bronze-light inline-flex min-h-9 items-center transition-colors"
+                    className="hover:text-bronze-light inline-flex min-h-8 items-center transition-colors"
                   >
                     {link.label}
                   </Link>
                 </li>
               ))}
               <li>
-                <CookieSettingsButton className="hover:text-bronze-light inline-flex min-h-9 items-center transition-colors" />
+                <CookieSettingsButton className="hover:text-bronze-light inline-flex min-h-8 items-center transition-colors" />
               </li>
             </ul>
           </nav>
-          <BackToTop className="hover:text-bronze-light inline-flex min-h-9 items-center gap-2 transition-colors" />
+          <BackToTop className="hover:text-bronze-light inline-flex min-h-8 items-center gap-2 transition-colors" />
         </div>
       </div>
     </footer>

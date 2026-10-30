@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Reveal } from "@/components/animation/Reveal";
+import { CenterReveal } from "@/components/animation/ImageFrames";
+import { RevealGroup, RevealItem } from "@/components/animation/Reveal";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { PageHero } from "@/components/ui/PageHero";
 import { Photo } from "@/components/ui/Photo";
@@ -67,24 +68,27 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
       <section className="bg-white py-14 md:py-20">
         <div className="container-site">
           {image && (
-            <Photo
-              image={image}
-              ratio="aspect-[16/10]"
-              sizes="(min-width: 1280px) 1200px, 100vw"
-              parallax
-            />
+            <CenterReveal>
+              <Photo
+                image={image}
+                ratio="aspect-[16/10]"
+                sizes="(min-width: 1280px) 1200px, 100vw"
+                parallax
+                reveal={false}
+              />
+            </CenterReveal>
           )}
 
-          <Reveal className="border-line mt-10 grid gap-8 border-t pt-8 sm:grid-cols-2 lg:grid-cols-4">
+          <RevealGroup className="border-line mt-10 grid gap-8 border-t pt-8 sm:grid-cols-2 lg:grid-cols-4">
             {facts.map((fact) => (
-              <div key={fact.label}>
+              <RevealItem key={fact.label} effect="flip">
                 <p className="text-taupe-deep text-[0.6875rem] font-semibold tracking-[0.2em] uppercase">
                   {fact.label}
                 </p>
                 <p className="font-heading mt-1.5 text-2xl">{fact.value}</p>
-              </div>
+              </RevealItem>
             ))}
-          </Reveal>
+          </RevealGroup>
 
           {service && (
             <p className="mt-10">
@@ -111,7 +115,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
             <ul className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
               {nearby.map((p) => (
                 <li key={p.slug}>
-                  <ProjectCard project={p} ratio="aspect-[4/3]" />
+                  <ProjectCard project={p} ratio="aspect-[4/3]" hover="lift" />
                 </li>
               ))}
             </ul>

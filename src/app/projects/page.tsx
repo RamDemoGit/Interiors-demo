@@ -25,7 +25,8 @@ export default async function ProjectsPage({
         title="Selected projects"
         lead="Each project is labelled as a photograph of completed work or a design visualization."
         crumbs={[{ label: "Projects" }]}
-        image="hero"
+        image="architectureConcept"
+        variant="zoom"
       />
       <section className="bg-white py-14 md:py-20">
         <div className="container-site">

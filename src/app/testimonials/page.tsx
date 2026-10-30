@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Reveal, RevealGroup, RevealItem } from "@/components/animation/Reveal";
+import { Reveal } from "@/components/animation/Reveal";
+import { StepTimeline } from "@/components/animation/StepTimeline";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { ArrowLink } from "@/components/ui/ArrowLink";
 import { ButtonLink } from "@/components/ui/Button";
@@ -49,14 +50,15 @@ export default function TestimonialsPage() {
         title="Testimonials"
         lead="Your experience of working with the studio matters to us."
         crumbs={[{ label: "Testimonials" }]}
-        image="living"
+        image="compact"
+        variant="curtain"
       />
 
       <section className="bg-white py-14 sm:py-20 md:py-28">
         <div className="container-site grid items-center gap-14 lg:grid-cols-12 lg:gap-16">
           <div className="relative lg:col-span-5">
             <Photo
-              image={referenceImages.dining}
+              image={referenceImages.windows}
               ratio="aspect-[4/5]"
               sizes="(min-width: 1024px) 40vw, 100vw"
               parallax
@@ -75,24 +77,7 @@ export default function TestimonialsPage() {
               title="Three simple steps."
               lead={`If you have worked with ${siteConfig.name}, we would be glad to hear how it went.`}
             />
-            <RevealGroup
-              as="ol"
-              className="border-line mt-10 divide-y divide-[var(--line)] border-y"
-            >
-              {steps.map((step, i) => (
-                <RevealItem key={step.title} as="li" className="flex gap-6 py-6">
-                  <span className="font-heading text-bronze text-4xl leading-none">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div>
-                    <h3 className="font-heading text-[1.5rem] leading-tight">
-                      {step.title}
-                    </h3>
-                    <p className="text-taupe-deep mt-1.5">{step.body}</p>
-                  </div>
-                </RevealItem>
-              ))}
-            </RevealGroup>
+            <StepTimeline steps={steps} />
             <Reveal delay={0.1} className="mt-10 flex flex-col gap-4 sm:flex-row">
               <ButtonLink href={`mailto:${siteConfig.email}?subject=${subject}`}>
                 Share your experience
@@ -119,7 +104,7 @@ export default function TestimonialsPage() {
           <ul className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
             {featuredProjects.slice(0, 3).map((project) => (
               <li key={project.slug}>
-                <ProjectCard project={project} ratio="aspect-[4/3]" />
+                <ProjectCard project={project} ratio="aspect-[4/3]" hover="caption" />
               </li>
             ))}
           </ul>

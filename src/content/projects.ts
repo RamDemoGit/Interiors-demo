@@ -104,7 +104,7 @@ const seeds: Seed[] = [
     pdfPages: "20-21",
     status: "visualization",
     relatedServices: RESIDENTIAL,
-    image: "compact",
+    image: "villaEcr",
   },
   {
     slug: "t-nagar-urban-oasis-proposal",
@@ -116,7 +116,7 @@ const seeds: Seed[] = [
     pdfPages: "23-24",
     status: "visualization",
     relatedServices: ARCHITECTURE,
-    image: "compact",
+    image: "urbanOasis",
   },
   {
     slug: "coimbatore-cafe-concept",
@@ -128,7 +128,7 @@ const seeds: Seed[] = [
     pdfPages: "26-27",
     status: "visualization",
     relatedServices: HOSPITALITY,
-    image: "dining",
+    image: "cafeCoimbatore",
   },
   {
     slug: "rk-salai-boutique-interior",
@@ -164,7 +164,7 @@ const seeds: Seed[] = [
     pdfPages: "36-37",
     status: "photograph",
     relatedServices: RESIDENTIAL,
-    image: "detail",
+    image: "compact",
     featured: true,
   },
   {
@@ -177,7 +177,7 @@ const seeds: Seed[] = [
     pdfPages: "39-40",
     status: "visualization",
     relatedServices: OFFICE,
-    image: "office",
+    image: "officeLobby",
   },
   {
     slug: "t-nagar-bedroom-transformation",
@@ -189,7 +189,7 @@ const seeds: Seed[] = [
     pdfPages: "42-43",
     status: "visualization",
     relatedServices: ["renovation-interior-transformation", ...RESIDENTIAL],
-    image: "bedroom",
+    image: "roomBedroom",
   },
   {
     slug: "cochin-mixed-use-building-concept",
@@ -201,7 +201,7 @@ const seeds: Seed[] = [
     pdfPages: "45",
     status: "visualization",
     relatedServices: ARCHITECTURE,
-    image: "compact",
+    image: "mixedUseCochin",
   },
   {
     slug: "kilpauk-cafe-concept",
@@ -213,7 +213,7 @@ const seeds: Seed[] = [
     pdfPages: "47",
     status: "visualization",
     relatedServices: HOSPITALITY,
-    image: "hero",
+    image: "cafeKilpauk",
   },
   {
     slug: "tambaram-spa-concept",
@@ -225,7 +225,7 @@ const seeds: Seed[] = [
     pdfPages: "49",
     status: "visualization",
     relatedServices: HOSPITALITY,
-    image: "hotel",
+    image: "spa",
   },
   {
     slug: "adambakkam-office-interior",
@@ -237,7 +237,7 @@ const seeds: Seed[] = [
     pdfPages: "51",
     status: "visualization",
     relatedServices: OFFICE,
-    image: "office",
+    image: "workspace",
   },
   {
     slug: "salem-mixed-use-building-concept",
@@ -249,7 +249,7 @@ const seeds: Seed[] = [
     pdfPages: "53",
     status: "visualization",
     relatedServices: ARCHITECTURE,
-    image: "hotel",
+    image: "mixedUseSalem",
   },
   {
     slug: "pallikaranai-residence-concept",
@@ -261,7 +261,7 @@ const seeds: Seed[] = [
     pdfPages: "55",
     status: "visualization",
     relatedServices: ARCHITECTURE,
-    image: "living",
+    image: "residenceConcept",
   },
 ];
 

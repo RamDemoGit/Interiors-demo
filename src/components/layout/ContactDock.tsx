@@ -13,7 +13,7 @@ const icons: Record<ContactAction["key"], ReactNode> = {
 
 /** Solid colour per action (all keep 4.5:1 contrast with white text). */
 const tone: Record<ContactAction["key"], string> = {
-  call: "bg-espresso hover:bg-black",
+  call: "bg-[#1f5fbf] hover:bg-[#184b96]",
   book: "bg-bronze-deep hover:bg-bronze-deeper",
   whatsapp: "bg-[#17794c] hover:bg-[#10603b]",
 };

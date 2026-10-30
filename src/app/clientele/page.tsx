@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
 import { Marquee } from "@/components/animation/Marquee";
+import { CardMarquee } from "@/components/animation/CardMarquee";
+import { Coverflow, type CoverflowItem } from "@/components/animation/Coverflow";
+import { ReviewCard } from "@/components/ui/ClientCards";
+import { clientReviews } from "@/content/reviews";
+import { LogoMarquee } from "@/components/ui/LogoMarquee";
+import { clientLogos } from "@/content/brands";
 import { Reveal, RevealGroup, RevealItem } from "@/components/animation/Reveal";
 import { CtaBand } from "@/components/sections/CtaBand";
 import Link from "next/link";
@@ -7,7 +13,7 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Photo } from "@/components/ui/Photo";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { featureFlags, siteConfig, workMix } from "@/config/site";
-import { projectFilters, projects } from "@/content/projects";
+import { projectFilters, projects, statusLabel } from "@/content/projects";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
@@ -32,6 +38,24 @@ const groups = projectFilters
   })
   .filter((g) => g.places.length > 0);
 
+// Gallery: every project whose picture is not already a category card below,
+// so no photograph repeats on this page.
+const coverSlugs = new Set(
+  projectFilters
+    .filter((f) => f.value !== "all")
+    .map((f) => projects.find((p) => p.filterTags.includes(f.value as never))?.slug),
+);
+const coverflowItems: CoverflowItem[] = projects
+  .filter((p) => !coverSlugs.has(p.slug) && p.images[0])
+  .map((p) => ({
+    slug: p.slug,
+    title: p.title,
+    category: p.category,
+    location: p.location,
+    status: statusLabel[p.status],
+    image: p.images[0]!,
+  }));
+
 const allPlaces = Array.from(new Set(projects.map((p) => p.location)));
 
 /**
@@ -47,6 +71,7 @@ export default function ClientelePage() {
         lead="Homeowners, businesses and institutions across Chennai and South India."
         crumbs={[{ label: "Clientele" }]}
         image="office"
+        variant="drop"
       />
 
       <section className="bg-white py-14 sm:py-20 md:py-28">
@@ -101,6 +126,47 @@ export default function ClientelePage() {
         </div>
       </section>
 
+      <section
+        aria-label="Our clients and their spaces"
+        className="relative overflow-hidden bg-white py-14 sm:py-20 md:py-28"
+      >
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-1/3 mx-auto h-[28rem] max-w-4xl rounded-full bg-[radial-gradient(closest-side,rgba(176,139,97,0.16),transparent)]"
+        />
+        <div className="container-site relative">
+          <SectionHeading
+            align="center"
+            eyebrow="Our clients"
+            title="The people and the spaces."
+            lead="Homes, workplaces and institutions designed for our clients. Swipe, use the arrows, or let the gallery turn on its own."
+            className="mx-auto mb-10 md:mb-14"
+          />
+          <Coverflow items={coverflowItems} />
+        </div>
+      </section>
+      {featureFlags.showTestimonialQuotes && clientReviews.length > 0 && (
+        <section
+          aria-label="What our clients say"
+          className="overflow-hidden bg-white py-14 sm:py-20 md:py-24"
+        >
+          <div className="container-site">
+            <SectionHeading
+              eyebrow="What our clients say"
+              title="In their own words."
+              className="mb-10 md:mb-12"
+            />
+          </div>
+          <CardMarquee
+            label="Client reviews"
+            duration={70}
+            items={clientReviews.map((r) => (
+              <ReviewCard key={r.name + r.quote.slice(0, 12)} review={r} />
+            ))}
+          />
+        </section>
+      )}
+
       <section className="bg-ivory border-line border-y py-14 sm:py-20 md:py-28">
         <div className="container-site">
           <SectionHeading
@@ -112,11 +178,17 @@ export default function ClientelePage() {
             as="ul"
             className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8"
           >
-            {groups.map((g) => (
-              <RevealItem key={g.value} as="li" className="flex">
+            {groups.map((g, index) => (
+              <RevealItem
+                key={g.value}
+                as="li"
+                className="flex"
+                effect="swing"
+                index={index}
+              >
                 <Link
                   href={`/projects?type=${g.value}`}
-                  className="group border-line [@media(hover:hover)]:hover:border-bronze relative flex w-full touch-manipulation flex-col border bg-white transition-[transform,box-shadow,border-color] duration-500 ease-out active:scale-[0.99] [@media(hover:hover)]:hover:-translate-y-1.5 [@media(hover:hover)]:hover:shadow-[0_28px_55px_-28px_rgba(53,44,39,0.5)]"
+                  className="group shake border-line [@media(hover:hover)]:hover:border-bronze relative flex w-full touch-manipulation flex-col border bg-white transition-[box-shadow,border-color] duration-500 ease-out [@media(hover:hover)]:hover:shadow-[0_28px_55px_-28px_rgba(53,44,39,0.5)]"
                 >
                   {g.image && (
                     <Photo
@@ -175,12 +247,33 @@ export default function ClientelePage() {
         </div>
       </section>
 
-      {featureFlags.showClientLogos && (
-        <section className="bg-white py-20">
-          <div className="container-site">{/* Approved client logos render here. */}</div>
+      {featureFlags.showClientLogos && clientLogos.length > 0 && (
+        <section aria-label="Our clients" className="bg-white py-16 sm:py-20 md:py-24">
+          <div className="container-site">
+            <SectionHeading
+              eyebrow="Our clients"
+              title="Names behind the spaces."
+              lead="Clients who have agreed to be listed."
+              className="mb-10 md:mb-12"
+            />
+          </div>
+          <Reveal className="space-y-2">
+            <LogoMarquee
+              items={clientLogos.slice(0, Math.ceil(clientLogos.length / 2))}
+              label="Our clients"
+              duration={45}
+            />
+            {clientLogos.length > 1 && (
+              <LogoMarquee
+                items={clientLogos.slice(Math.ceil(clientLogos.length / 2))}
+                label="More of our clients"
+                duration={52}
+                reverse
+              />
+            )}
+          </Reveal>
         </section>
       )}
-
       <CtaBand />
     </>
   );

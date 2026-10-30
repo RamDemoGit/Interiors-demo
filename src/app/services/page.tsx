@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ScrollTextBand } from "@/components/animation/ScrollEffects";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { PracticeMix } from "@/components/sections/PracticeMix";
-import { ServicesGrid } from "@/components/sections/ServicesGrid";
+import { ServiceIndex } from "@/components/sections/ServiceIndex";
 import { PageHero } from "@/components/ui/PageHero";
 import { buildMetadata } from "@/lib/seo";
 
@@ -21,9 +21,10 @@ export default function ServicesPage() {
         title="Architecture and interior design services in Chennai"
         crumbs={[{ label: "Our Services" }]}
         image="living"
+        variant="slide"
       />
       <PracticeMix />
-      <ServicesGrid heading={false} />
+      <ServiceIndex />
       <ScrollTextBand
         className="bg-white"
         top="Interiors · Architecture · Concepts"

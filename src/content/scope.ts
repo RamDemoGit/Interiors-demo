@@ -14,12 +14,12 @@ export const interiorScope: ScopeItem[] = [
   },
   {
     title: "Bedroom Interiors",
-    image: "bedroom",
+    image: "roomBedroom",
     items: ["Wardrobes", "Wardrobe accessories", "Cots & back panels", "Dressing units"],
   },
   {
     title: "Living Room",
-    image: "living",
+    image: "roomLiving",
     items: ["TV units", "Designer partitions", "Feature walls"],
   },
   {
@@ -29,7 +29,7 @@ export const interiorScope: ScopeItem[] = [
   },
   {
     title: "Dining",
-    image: "dining",
+    image: "roomDining",
     items: ["Crockery storage", "Dining tables & chairs"],
   },
   {

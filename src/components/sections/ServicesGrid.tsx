@@ -1,3 +1,4 @@
+import { TiltCard } from "@/components/animation/TiltCard";
 import { RevealGroup, RevealItem } from "@/components/animation/Reveal";
 import { ArrowLink } from "@/components/ui/ArrowLink";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -19,8 +20,10 @@ export function ServicesGrid({ heading = true }: { heading?: boolean }) {
         )}
         <RevealGroup className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
           {services.map((service, i) => (
-            <RevealItem key={service.slug}>
-              <ServiceCard service={service} index={i} />
+            <RevealItem key={service.slug} effect="swing" index={i}>
+              <TiltCard>
+                <ServiceCard service={service} index={i} />
+              </TiltCard>
             </RevealItem>
           ))}
         </RevealGroup>

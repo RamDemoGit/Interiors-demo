@@ -79,11 +79,16 @@ export function ProjectsExplorer({
       <RevealGroup
         key={type}
         as="ul"
-        className="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3"
+        className="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3 lg:[&>li:nth-child(3n+2)]:mt-16"
       >
         {visible.map((project) => (
-          <RevealItem key={project.slug} as="li">
-            <ProjectCard project={project} ratio="aspect-[4/3]" reveal={false} />
+          <RevealItem key={project.slug} as="li" effect="wipe">
+            <ProjectCard
+              project={project}
+              ratio="aspect-[4/3]"
+              reveal={false}
+              hover="frame"
+            />
           </RevealItem>
         ))}
       </RevealGroup>

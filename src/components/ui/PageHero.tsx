@@ -16,6 +16,8 @@ type Props = {
   image?: ReferenceKey | ProjectImage;
   /** Alignment of the image focal point. */
   focal?: string;
+  /** How the title panel enters: each page picks its own. */
+  variant?: "curtain" | "slide" | "zoom" | "drop";
 };
 
 /**
@@ -30,6 +32,7 @@ export function PageHero({
   crumbs,
   image = "living",
   focal,
+  variant = "slide",
 }: Props) {
   const bg = typeof image === "string" ? referenceImages[image] : image;
 
@@ -43,8 +46,14 @@ export function PageHero({
           priority
           quality={90}
           sizes="100vw"
-          className="anim-settle object-cover"
-          style={{ objectPosition: focal ?? "center 55%" }}
+          className="kb object-cover"
+          style={
+            {
+              objectPosition: focal ?? "center 55%",
+              "--kb-s": 1.1,
+              "--kb-t": "20s",
+            } as CSSProperties
+          }
         />
       </HeroParallax>
       <div
@@ -53,7 +62,9 @@ export function PageHero({
       />
 
       <div className="container-site flex min-h-[19rem] items-end pt-24 pb-6 sm:min-h-[21rem] sm:items-center sm:py-10 lg:min-h-[24rem] lg:py-20">
-        <div className="bg-ivory/95 border-bronze relative w-full max-w-xl border-l-4 p-5 shadow-[0_24px_50px_-28px_rgba(53,44,39,0.55)] backdrop-blur-sm sm:p-7">
+        <div
+          className={`panel-${variant} bg-ivory/95 border-bronze relative w-full max-w-xl border-l-4 p-5 shadow-[0_24px_50px_-28px_rgba(53,44,39,0.55)] backdrop-blur-sm sm:p-7`}
+        >
           {crumbs && crumbs.length > 0 && (
             <nav aria-label="Breadcrumb" className="mb-5">
               <ol className="text-taupe-deep flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.8125rem]">

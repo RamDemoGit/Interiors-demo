@@ -88,6 +88,8 @@ export const workMix = { commercial: 75, homes: 25 } as const;
 export const featureFlags = {
   /** Client logos stay hidden until the owner supplies and approves them. */
   showClientLogos: false,
+  /** Preferred-brand logos stay hidden until the owner supplies the list. */
+  showPreferredBrands: false,
   /** Area landing pages are `noindex` until the owner approves the copy. */
   indexAreaPages: false,
   /** Testimonials are never fabricated; the quote area stays hidden. */

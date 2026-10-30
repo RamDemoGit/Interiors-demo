@@ -4,78 +4,51 @@ import { useReducedMotion } from "motion/react";
 import Image from "next/image";
 import { useEffect, useState, type CSSProperties } from "react";
 import { RevealGroup, RevealItem } from "@/components/animation/Reveal";
-import { ButtonLink } from "@/components/ui/Button";
 import { HeroParallax } from "@/components/animation/ScrollEffects";
-import { EnquiryButton } from "@/components/forms/EnquiryModal";
 import { ReferenceBadge } from "@/components/ui/ReferenceBadge";
 import { siteConfig, workMix } from "@/config/site";
 import { referenceImages, type ReferenceKey } from "@/content/images";
 import { cn } from "@/lib/utils";
 
-type SlideAction = { label: string; href: string } | { label: string; enquiry: true };
-
-const enquire: SlideAction = { label: siteConfig.primaryCta.label, enquiry: true };
-
-function SlideButton({
-  action,
-  variant,
-}: {
-  action: SlideAction;
-  variant?: "primary" | "secondary";
-}) {
-  if ("enquiry" in action) {
-    return <EnquiryButton variant={variant}>{action.label}</EnquiryButton>;
-  }
-  return (
-    <ButtonLink href={action.href} variant={variant}>
-      {action.label}
-    </ButtonLink>
-  );
-}
-
 type Slide = {
   image: ReferenceKey;
-  eyebrow: string;
-  title: string[];
-  text: string;
-  primary: SlideAction;
-  secondary: SlideAction;
+  /** Short description for assistive tech (the hero shows photos only). */
+  label: string;
   focal: string;
+  /** Pan direction of the zoom (x, y), so every slide moves differently. */
+  pan: [string, string];
 };
 
 const slides: Slide[] = [
   {
-    image: "living",
-    eyebrow: `${siteConfig.address.city} \u00b7 Since ${siteConfig.established}`,
-    title: ["Designing Spaces.", "Defining Experiences."],
-    text: `Commercial, workplace and home interiors from our ${siteConfig.address.locality} studio in ${siteConfig.address.city}, serving ${siteConfig.areaServed.join(" and ")}.`,
-    primary: enquire,
-    secondary: { label: "View Projects", href: "/projects" },
-    focal: "center 60%",
-  },
-  {
-    image: "office",
-    eyebrow: `Commercial \u00b7 about ${workMix.commercial}% of our work`,
-    title: ["Workplaces, retail", "and hospitality, designed."],
-    text: "Offices, shops, cafés, hotels and institutions: commercial spaces planned to work as well as they look.",
-    primary: {
-      label: "Commercial Interiors",
-      href: "/services/commercial-retail-interior-design",
-    },
-    secondary: enquire,
-    focal: "center 50%",
-  },
-  {
-    image: "dining",
-    eyebrow: `Homes \u00b7 about ${workMix.homes}% of our work`,
-    title: ["Rooms shaped around", "the way you live."],
-    text: "Kitchens, bedrooms, living and dining rooms, pooja rooms and more, designed room by room.",
-    primary: {
-      label: "Residential Interiors",
-      href: "/services/residential-interior-design",
-    },
-    secondary: enquire,
+    image: "officeLobby",
+    label: "Corporate office lobby interior",
     focal: "center 55%",
+    pan: ["-2%", "-1.4%"],
+  },
+  {
+    image: "homeLiving",
+    label: "Home living room interior",
+    focal: "center 55%",
+    pan: ["2%", "-1%"],
+  },
+  {
+    image: "hotelLobby",
+    label: "Commercial hotel lobby interior",
+    focal: "center 50%",
+    pan: ["-1.2%", "1.6%"],
+  },
+  {
+    image: "homeKitchen",
+    label: "Home kitchen and dining interior",
+    focal: "center 55%",
+    pan: ["1.6%", "1.2%"],
+  },
+  {
+    image: "boardroom",
+    label: "Corporate boardroom interior",
+    focal: "center 55%",
+    pan: ["-2%", "-1%"],
   },
 ];
 
@@ -92,19 +65,28 @@ const facts = [
   },
 ];
 
-const INTERVAL = 7000;
+/** Time each photo stays on screen (one full zoom in + zoom out). */
+const INTERVAL = 4000;
+/** Zoom in then back out, finishing exactly as the next photo takes over. */
+const ZOOM_TIME = "4s";
+
+const controlBtn =
+  "grid h-11 w-11 place-items-center rounded-full border border-white/70 bg-black/25 text-white backdrop-blur-sm transition-colors hover:bg-white hover:text-espresso";
 
 /**
- * Home hero slider. The first slide is server-rendered visible (no JS wait for
- * LCP). Autoplay pauses on hover, focus and via the Pause button, and is off
- * for reduced motion.
+ * Home hero: a full-height, film-style photo reel. Each photo zooms in
+ * and out (like a camera move) and crossfades to the next. There is no text
+ * box; the page title lives in a visually hidden h1. The first photo is
+ * server-rendered visible (no JS wait for LCP). Autoplay never stops on
+ * hover or touch; it can be paused with the Pause button and is off for
+ * reduced motion.
  */
 export function Hero() {
   const [index, setIndex] = useState(0);
-  const [hovered, setHovered] = useState(false);
   const [userPaused, setUserPaused] = useState(false);
   const reduce = useReducedMotion();
-  const playing = !userPaused && !hovered && !reduce;
+  // Plays like a film: touching or hovering the photos never stops it.
+  const playing = !userPaused && !reduce;
 
   useEffect(() => {
     if (!playing) return;
@@ -121,22 +103,21 @@ export function Hero() {
     <>
       <section
         aria-roledescription="carousel"
-        aria-label="Featured"
-        className="bg-ivory relative isolate overflow-hidden"
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        onFocus={() => setHovered(true)}
-        onBlur={() => setHovered(false)}
+        aria-label="Featured interiors"
+        className="bg-espresso relative isolate overflow-hidden"
       >
-        {/* Image layer (crossfade) */}
+        {/* Photo reel (crossfade + continuous zoom in / out) */}
         <HeroParallax className="-z-20">
           {slides.map((s, i) => {
             const img = referenceImages[s.image];
             return (
               <div
                 key={s.image}
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`${i + 1} of ${slides.length}: ${s.label}`}
                 className={cn(
-                  "absolute inset-0 transition-opacity duration-[1400ms] ease-in-out",
+                  "absolute inset-0 transition-opacity duration-[700ms] ease-in-out",
                   i === index ? "opacity-100" : "opacity-0",
                 )}
               >
@@ -145,20 +126,38 @@ export function Hero() {
                   alt=""
                   fill
                   priority={i === 0}
+                  quality={85}
                   sizes="100vw"
-                  className={cn(
-                    "object-cover transition-transform duration-[9000ms] ease-out",
-                    i === index ? "scale-105" : "scale-100",
-                  )}
-                  style={{ objectPosition: s.focal }}
+                  data-active={i === index}
+                  data-paused={!playing}
+                  className="kb-once object-cover"
+                  style={
+                    {
+                      objectPosition: s.focal,
+                      "--kb-x": s.pan[0],
+                      "--kb-y": s.pan[1],
+                      "--kb-s": 1.2,
+                      "--kb-t": ZOOM_TIME,
+                    } as CSSProperties
+                  }
                 />
               </div>
             );
           })}
         </HeroParallax>
+
+        {/* Cinematic grading: vignette, bottom shade for the controls, drifting light */}
         <div
           aria-hidden="true"
-          className="from-espresso/35 absolute inset-0 -z-10 bg-gradient-to-t via-transparent to-transparent"
+          className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgb(20_14_10/0.4)_100%)]"
+        />
+        <div
+          aria-hidden="true"
+          className="from-espresso/60 absolute inset-0 -z-10 bg-gradient-to-t via-transparent via-40% to-transparent"
+        />
+        <div
+          aria-hidden="true"
+          className="light-drift pointer-events-none absolute inset-0 -z-10 mix-blend-soft-light"
         />
         <div
           aria-hidden="true"
@@ -167,91 +166,22 @@ export function Hero() {
           <ReferenceBadge />
         </div>
 
-        <div className="container-site relative flex min-h-[27rem] flex-col justify-between gap-6 py-8 sm:min-h-[30rem] sm:py-10 lg:min-h-[33rem] lg:py-12">
-          {/* Slide copy stacked in one grid cell so height = tallest slide */}
-          <div
-            className="grid flex-1 content-center"
-            aria-live={playing ? "off" : "polite"}
-          >
-            {slides.map((s, i) => {
-              const active = i === index;
-              const Title = i === 0 ? "h1" : "p";
-              const rise = (d: number): CSSProperties => ({
-                transitionDelay: active ? `${d}s` : "0s",
-              });
-              const item = cn(
-                "transition-[opacity,transform] duration-700 ease-out",
-                active ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0",
-              );
-              return (
-                <div
-                  key={s.title.join(" ")}
-                  role="group"
-                  aria-roledescription="slide"
-                  aria-label={`${i + 1} of ${slides.length}`}
-                  aria-hidden={!active}
-                  inert={!active}
-                  className={cn(
-                    "bg-ivory/92 border-bronze col-start-1 row-start-1 max-w-md self-center border-l-4 p-5 shadow-[0_24px_50px_-28px_rgba(53,44,39,0.55)] backdrop-blur-sm sm:max-w-lg sm:p-7",
-                    !active &&
-                      "pointer-events-none invisible transition-[visibility] delay-700",
-                  )}
-                >
-                  <p
-                    className={cn(
-                      item,
-                      "eyebrow mb-3 flex items-center gap-3 !text-[0.6875rem]",
-                    )}
-                    style={rise(0.1)}
-                  >
-                    <span aria-hidden="true" className="bg-bronze h-px w-10" />
-                    {s.eyebrow}
-                  </p>
-                  <Title
-                    className={cn(
-                      item,
-                      "font-heading text-[clamp(1.75rem,1.2rem+2.2vw,2.75rem)] leading-[1.08] font-medium tracking-[-0.01em]",
-                    )}
-                    style={rise(0.2)}
-                  >
-                    {s.title.map((line) => (
-                      <span key={line} className="block">
-                        {line}
-                      </span>
-                    ))}
-                  </Title>
-                  <p
-                    className={cn(
-                      item,
-                      "text-espresso/85 mt-4 max-w-md text-[0.9375rem] leading-relaxed",
-                    )}
-                    style={rise(0.35)}
-                  >
-                    {s.text}
-                  </p>
-                  <div
-                    className={cn(
-                      item,
-                      "mt-5 flex flex-col gap-3 sm:flex-row [&_a]:min-h-10 [&_a]:px-5 [&_a]:py-2.5 [&_a]:text-[0.75rem] [&_button]:min-h-10 [&_button]:px-5 [&_button]:py-2.5 [&_button]:text-[0.75rem]",
-                    )}
-                    style={rise(0.5)}
-                  >
-                    <SlideButton action={s.primary} />
-                    <SlideButton action={s.secondary} variant="secondary" />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+        <div className="relative flex h-[min(76svh,44rem)] min-h-[26rem] flex-col justify-end sm:h-[min(82svh,50rem)] lg:h-[min(calc(100svh-var(--header-h)),54rem)]">
+          <h1 className="sr-only">
+            {siteConfig.name}: Designing Spaces. Defining Experiences.
+          </h1>
+          <p className="sr-only" aria-live={playing ? "off" : "polite"}>
+            {slides[index]?.label}
+          </p>
 
           {/* Controls */}
-          <div className="flex items-center justify-between gap-4">
+          <div className="container-site flex items-center justify-between gap-4 pb-6 sm:pb-8">
             <div className="flex items-center gap-3">
               <button
                 type="button"
                 onClick={() => go(index - 1)}
                 aria-label="Previous slide"
-                className="border-espresso/60 text-espresso hover:bg-espresso hover:text-ivory grid h-11 w-11 place-items-center rounded-full border bg-white/70 backdrop-blur-sm transition-colors"
+                className={controlBtn}
               >
                 <Arrow className="rotate-180" />
               </button>
@@ -259,7 +189,7 @@ export function Hero() {
                 type="button"
                 onClick={() => go(index + 1)}
                 aria-label="Next slide"
-                className="border-espresso/60 text-espresso hover:bg-espresso hover:text-ivory grid h-11 w-11 place-items-center rounded-full border bg-white/70 backdrop-blur-sm transition-colors"
+                className={controlBtn}
               >
                 <Arrow />
               </button>
@@ -268,40 +198,32 @@ export function Hero() {
                   type="button"
                   onClick={() => setUserPaused((p) => !p)}
                   aria-label={userPaused ? "Play slideshow" : "Pause slideshow"}
-                  className="border-espresso/60 text-espresso hover:bg-espresso hover:text-ivory grid h-11 w-11 place-items-center rounded-full border bg-white/70 backdrop-blur-sm transition-colors max-sm:hidden"
+                  className={cn(controlBtn, "max-sm:hidden")}
                 >
-                  {userPaused ? (
-                    <svg
-                      width="12"
-                      height="14"
-                      viewBox="0 0 12 14"
-                      fill="currentColor"
-                      aria-hidden="true"
-                    >
+                  <svg
+                    width="12"
+                    height="14"
+                    viewBox="0 0 12 14"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    {userPaused ? (
                       <path d="M0 0l12 7-12 7z" />
-                    </svg>
-                  ) : (
-                    <svg
-                      width="12"
-                      height="14"
-                      viewBox="0 0 12 14"
-                      fill="currentColor"
-                      aria-hidden="true"
-                    >
+                    ) : (
                       <path d="M0 0h4v14H0zM8 0h4v14H8z" />
-                    </svg>
-                  )}
+                    )}
+                  </svg>
                 </button>
               )}
             </div>
 
             <div className="flex items-center gap-4">
               <p
-                className="text-espresso text-sm font-semibold tabular-nums"
+                className="text-sm font-semibold text-white tabular-nums"
                 aria-hidden="true"
               >
                 {String(index + 1).padStart(2, "0")}
-                <span className="text-taupe-deep">
+                <span className="text-white/60">
                   {" "}
                   / {String(slides.length).padStart(2, "0")}
                 </span>
@@ -314,14 +236,28 @@ export function Hero() {
                       onClick={() => setIndex(i)}
                       aria-label={`Go to slide ${i + 1}`}
                       aria-current={i === index}
-                      className="grid h-11 w-8 place-items-center"
+                      className="grid h-11 w-9 place-items-center"
                     >
                       <span
                         className={cn(
-                          "block h-[3px] rounded-full transition-all duration-500",
-                          i === index ? "bg-bronze-deep w-8" : "bg-espresso/35 w-4",
+                          "relative block h-[3px] overflow-hidden rounded-full bg-white/35 transition-all duration-500",
+                          i === index ? "w-12" : "w-6",
                         )}
-                      />
+                      >
+                        {i === index && (
+                          <span
+                            key={`fill-${index}-${playing}`}
+                            className={cn(
+                              "absolute inset-0 block bg-white",
+                              !reduce && "seg-fill",
+                            )}
+                            style={{
+                              animationDuration: `${INTERVAL}ms`,
+                              animationPlayState: playing ? "running" : "paused",
+                            }}
+                          />
+                        )}
+                      </span>
                     </button>
                   </li>
                 ))}
@@ -330,29 +266,30 @@ export function Hero() {
           </div>
         </div>
       </section>
-
-      {/* Facts strip */}
-      <div className="bg-sand border-line border-b">
-        <RevealGroup className="container-site grid grid-cols-2 gap-3 py-6 sm:gap-4 lg:grid-cols-4 lg:gap-6 lg:py-9">
-          {facts.map((fact) => (
-            <RevealItem key={fact.label} className="flex">
-              <div
-                tabIndex={0}
-                className="group border-line relative isolate flex min-h-[6.25rem] w-full touch-manipulation flex-col items-center justify-center overflow-hidden border bg-white px-3 py-5 text-center transition-[transform,box-shadow,border-color] duration-500 ease-out outline-none focus-visible:scale-[1.04] focus-visible:shadow-xl active:scale-[1.04] active:shadow-xl sm:px-5 sm:py-6 [@media(hover:hover)]:hover:scale-[1.04] [@media(hover:hover)]:hover:border-[var(--bronze-deep)] [@media(hover:hover)]:hover:shadow-xl"
-              >
+      {/* Facts: open, ruled columns (no cards) */}
+      <div className="border-line border-b bg-white">
+        <RevealGroup
+          as="ul"
+          className="container-site grid grid-cols-2 gap-x-6 gap-y-9 py-10 sm:gap-x-8 lg:grid-cols-4 lg:gap-x-12 lg:py-14"
+        >
+          {facts.map((fact, index) => (
+            <RevealItem key={fact.label} as="li" className="group relative">
+              <div className="border-line relative border-t pt-5">
                 <span
                   aria-hidden="true"
-                  className="bg-espresso absolute inset-0 -z-10 origin-bottom scale-y-0 transition-transform duration-[650ms] ease-(--ease-out-expo) group-focus-visible:scale-y-100 group-active:scale-y-100 [@media(hover:hover)]:group-hover:scale-y-100"
+                  className="bg-bronze absolute -top-px left-0 h-[2px] w-12 transition-[width] duration-700 ease-(--ease-out-expo) [@media(hover:hover)]:group-hover:w-full"
                 />
                 <span
                   aria-hidden="true"
-                  className="bg-bronze absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 transition-transform delay-300 duration-500 group-focus-visible:scale-x-100 group-active:scale-x-100 [@media(hover:hover)]:group-hover:scale-x-100"
-                />
-                <dl className="flex flex-col items-center">
-                  <dt className="text-taupe-deep group-focus-visible:text-bronze-light group-active:text-bronze-light [@media(hover:hover)]:group-hover:text-bronze-light text-[0.6875rem] font-semibold tracking-[0.2em] uppercase transition-colors duration-500">
+                  className="text-bronze-deep text-[0.6875rem] font-semibold tracking-[0.2em] tabular-nums"
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <dl className="mt-3">
+                  <dt className="text-taupe-deep text-[0.6875rem] font-semibold tracking-[0.2em] uppercase">
                     {fact.label}
                   </dt>
-                  <dd className="font-heading group-focus-visible:text-ivory group-active:text-ivory [@media(hover:hover)]:group-hover:text-ivory mt-2 text-[1.2rem] leading-tight text-balance transition-colors duration-500 sm:text-2xl">
+                  <dd className="font-heading mt-2 text-[1.4rem] leading-[1.15] text-balance sm:text-[1.75rem] lg:text-[2rem]">
                     {fact.value}
                   </dd>
                 </dl>
@@ -360,7 +297,7 @@ export function Hero() {
             </RevealItem>
           ))}
         </RevealGroup>
-      </div>
+      </div>{" "}
     </>
   );
 }

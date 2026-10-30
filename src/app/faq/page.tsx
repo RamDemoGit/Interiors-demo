@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Reveal } from "@/components/animation/Reveal";
 import { CtaBand } from "@/components/sections/CtaBand";
+import { FaqList } from "@/components/sections/FaqList";
 import { PageHero } from "@/components/ui/PageHero";
 import { siteConfig, workMix } from "@/config/site";
 import { services } from "@/content/services";
@@ -82,36 +82,13 @@ export default function FaqPage() {
         title="Frequently asked questions"
         lead="Straight answers about working with the studio."
         crumbs={[{ label: "FAQ" }]}
-        image="dining"
+        image="roomDining"
+        variant="zoom"
       />
 
       <section className="bg-white py-14 sm:py-20 md:py-28">
         <div className="container-site max-w-4xl">
-          <Reveal>
-            <ul className="border-line divide-y divide-[var(--line)] border-y">
-              {faqs.map((f) => (
-                <li key={f.question}>
-                  <details className="group">
-                    <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-6 py-5 text-left [&::-webkit-details-marker]:hidden">
-                      <h2 className="font-heading text-[1.25rem] leading-snug sm:text-[1.5rem]">
-                        {f.question}
-                      </h2>
-                      <span
-                        aria-hidden="true"
-                        className="border-bronze text-bronze-deep group-open:bg-bronze-deep group-open:text-ivory relative h-8 w-8 shrink-0 rounded-full border transition-colors"
-                      >
-                        <span className="absolute top-1/2 left-1/2 h-px w-3 -translate-x-1/2 bg-current" />
-                        <span className="absolute top-1/2 left-1/2 h-3 w-px -translate-x-1/2 -translate-y-1/2 bg-current transition-transform group-open:scale-y-0" />
-                      </span>
-                    </summary>
-                    <p className="text-taupe-deep max-w-3xl pb-6 text-[1.0625rem]">
-                      {f.answer}
-                    </p>
-                  </details>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
+          <FaqList items={faqs} />
         </div>
       </section>
 

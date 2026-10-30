@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ScrubText } from "@/components/animation/ScrubText";
 import { Reveal, RevealGroup, RevealItem } from "@/components/animation/Reveal";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { PracticeMix } from "@/components/sections/PracticeMix";
@@ -50,8 +51,23 @@ export default function AboutPage() {
         title="About Us"
         lead={`Established in ${siteConfig.established} by ${siteConfig.founder}, with a studio in ${siteConfig.address.locality}, ${siteConfig.address.city}.`}
         crumbs={[{ label: "About Us" }]}
-        image="dining"
+        image="officeLobby"
+        variant="curtain"
       />
+
+      {/* Scroll-scrubbed statement */}
+      <section className="bg-ivory py-20 sm:py-28 md:py-36">
+        <div className="container-site">
+          <p className="eyebrow mb-8 flex items-center gap-4">
+            <span aria-hidden="true" className="bg-bronze h-px w-10" />
+            In a few words
+          </p>
+          <ScrubText
+            className="font-heading max-w-5xl text-[clamp(1.75rem,1.1rem+3vw,3.6rem)] leading-[1.15]"
+            text={`One studio in ${siteConfig.address.locality}, ${siteConfig.address.city}, designing architecture and interiors for commercial spaces and homes across ${siteConfig.areaServed.join(" and ")} since ${siteConfig.established}.`}
+          />
+        </div>
+      </section>
 
       {/* Story */}
       <section className="bg-white py-20 md:py-28">

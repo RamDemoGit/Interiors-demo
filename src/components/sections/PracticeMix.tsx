@@ -26,7 +26,7 @@ export function PracticeMix() {
       eyebrow: "Commercial",
       title: "Commercial & workplace spaces",
       text: "Retail, offices, cafés and hospitality, and institutional interiors form the larger part of our work.",
-      image: referenceImages.office,
+      image: referenceImages.workspace,
       list: commercialServices,
       cta: {
         label: "Commercial interiors",
@@ -40,7 +40,7 @@ export function PracticeMix() {
       eyebrow: "Homes",
       title: "Homes & renovation",
       text: "Residences and renovations make up the rest, designed room by room with the same care.",
-      image: referenceImages.living,
+      image: referenceImages.bedroom,
       list: homeServices,
       cta: {
         label: "Residential interiors",
