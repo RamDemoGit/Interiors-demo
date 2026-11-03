@@ -1,7 +1,7 @@
 import { Reveal } from "@/components/animation/Reveal";
 import { CountUp, Drift } from "@/components/animation/ScrollEffects";
 import { ArrowLink } from "@/components/ui/ArrowLink";
-import { siteConfig } from "@/config/site";
+import { founderDisplay, siteConfig } from "@/config/site";
 
 /** Founder band. Name and year only: no invented bio, quotes or credentials. */
 export function Founder() {
@@ -25,11 +25,11 @@ export function Founder() {
             <span aria-hidden="true" className="bg-bronze h-px w-10" />
             Founder
           </p>
-          <h2>{siteConfig.founder}</h2>
+          <h2>{founderDisplay}</h2>
           <p className="text-taupe-deep mt-6 max-w-xl text-[1.0625rem]">
             Founder of {siteConfig.name}, an architecture and interior design practice
             established in {siteConfig.established} and based in{" "}
-            {siteConfig.address.locality}, {siteConfig.address.city}.
+            {siteConfig.address.city}.
           </p>
           <div className="mt-8">
             <ArrowLink href="/about">Read about the practice</ArrowLink>

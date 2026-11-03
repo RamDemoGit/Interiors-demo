@@ -40,7 +40,7 @@ const EnquiryForm = dynamic(
 
 const steps = [
   "Fill in the form",
-  "Your email app opens with the details filled in",
+  "Choose Send by email or Send on WhatsApp, with the details filled in",
   "Press send and we will respond to your enquiry",
 ];
 
@@ -129,7 +129,7 @@ export function EnquiryModalProvider({ children }: { children: ReactNode }) {
                     ))}
                   </ol>
                   <p className="text-ivory/90 border-ivory/25 mt-8 hidden border-t pt-5 text-sm md:block">
-                    {siteConfig.address.locality}, {siteConfig.address.city}
+                    {siteConfig.address.city}
                     <br />
                     {siteConfig.email}
                   </p>
@@ -148,7 +148,8 @@ export function EnquiryModalProvider({ children }: { children: ReactNode }) {
                   Tell us about your project.
                 </h2>
                 <p className="text-taupe-deep mb-6 text-[0.9375rem]">
-                  Fill in the form and your email app opens with your details filled in.
+                  Fill in the form, then send it by email or on WhatsApp. Your details are
+                  filled in for you.
                 </p>
                 <EnquiryForm idPrefix="modal-" />
               </div>

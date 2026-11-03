@@ -726,8 +726,9 @@ html.lenis body {
   }
 }
 
-.orb-ring {
-  animation: orb-spin 24s linear infinite;
+.orb-arrow {
+  animation: orb-spin 5s linear infinite;
+  transform-origin: 50% 50%;
 }
 
 .orb:hover {
@@ -735,7 +736,61 @@ html.lenis body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .orb-ring {
+  .orb-arrow {
+    animation: none;
+  }
+}
+
+/* ---- Facts strip: coloured field that slowly zooms ---------------------- */
+@keyframes facts-zoom {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(1.7);
+    opacity: 1;
+  }
+}
+
+.facts-zoom {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.facts-zoom-a {
+  top: -60%;
+  left: -10%;
+  width: 40rem;
+  height: 26rem;
+  background: radial-gradient(closest-side, rgba(245, 241, 234, 0.2), transparent);
+  animation: facts-zoom 12s ease-in-out infinite;
+}
+
+.facts-zoom-b {
+  right: -8%;
+  bottom: -70%;
+  width: 36rem;
+  height: 24rem;
+  background: radial-gradient(closest-side, rgba(201, 165, 123, 0.4), transparent);
+  animation: facts-zoom 15s ease-in-out infinite reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .facts-zoom {
+    animation: none;
+  }
+}
+.achievements-glow {
+  background: radial-gradient(closest-side, rgba(176, 139, 97, 0.22), transparent);
+  animation: facts-zoom 14s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .achievements-glow {
     animation: none;
   }
 }

@@ -13,6 +13,8 @@ type Props = {
   lead?: ReactNode;
   align?: "left" | "center";
   as?: "h1" | "h2";
+  /** "light" for dark / green backgrounds: white heading and lead. */
+  tone?: "default" | "light";
   className?: string;
 };
 
@@ -76,23 +78,33 @@ export function SectionHeading({
   lead,
   align = "left",
   as: Tag = "h2",
+  tone = "default",
   className,
 }: Props) {
   const text = plainText(title);
   return (
     <div
-      className={cn(align === "center" && "mx-auto text-center", "max-w-3xl", className)}
+      className={cn(
+        align === "center" && "mx-auto text-center",
+        tone === "light" && "text-white",
+        "max-w-3xl",
+        className,
+      )}
     >
       {eyebrow && (
         <p
           className={cn(
             "eyebrow mb-5 flex items-center gap-4",
+            tone === "light" && "text-bronze-light!",
             align === "center" && "justify-center",
           )}
         >
           <m.span
             aria-hidden="true"
-            className="bg-bronze h-px w-10 origin-left"
+            className={cn(
+              "h-px w-10 origin-left",
+              tone === "light" ? "bg-bronze-light" : "bg-bronze",
+            )}
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
@@ -106,7 +118,12 @@ export function SectionHeading({
       <Tag>{text !== null ? <WordRise text={text} /> : title}</Tag>
       {lead && (
         <Reveal delay={0.15} y={18}>
-          <p className="text-taupe-deep mt-6 max-w-2xl text-[length:var(--text-lead)] leading-[var(--text-lead--line-height)]">
+          <p
+            className={cn(
+              "mt-6 max-w-2xl text-[length:var(--text-lead)] leading-[var(--text-lead--line-height)]",
+              tone === "light" ? "text-white/85" : "text-taupe-deep",
+            )}
+          >
             {lead}
           </p>
         </Reveal>

@@ -3,10 +3,10 @@
 import { useReducedMotion } from "motion/react";
 import Image from "next/image";
 import { useEffect, useState, type CSSProperties } from "react";
-import { RevealGroup, RevealItem } from "@/components/animation/Reveal";
 import { HeroParallax } from "@/components/animation/ScrollEffects";
+import { FactsStrip } from "@/components/sections/FactsStrip";
 import { ReferenceBadge } from "@/components/ui/ReferenceBadge";
-import { siteConfig, workMix } from "@/config/site";
+import { siteConfig } from "@/config/site";
 import { referenceImages, type ReferenceKey } from "@/content/images";
 import { cn } from "@/lib/utils";
 
@@ -49,19 +49,6 @@ const slides: Slide[] = [
     label: "Corporate boardroom interior",
     focal: "center 55%",
     pan: ["-2%", "-1%"],
-  },
-];
-
-const facts = [
-  { label: "Established", value: `Since ${siteConfig.established}` },
-  {
-    label: "Studio",
-    value: `${siteConfig.address.locality}, ${siteConfig.address.city}`,
-  },
-  { label: "Founder", value: siteConfig.founder },
-  {
-    label: "Our work",
-    value: `${workMix.commercial}% commercial \u00b7 ${workMix.homes}% homes`,
   },
 ];
 
@@ -266,38 +253,7 @@ export function Hero() {
           </div>
         </div>
       </section>
-      {/* Facts: open, ruled columns (no cards) */}
-      <div className="border-line border-b bg-white">
-        <RevealGroup
-          as="ul"
-          className="container-site grid grid-cols-2 gap-x-6 gap-y-9 py-10 sm:gap-x-8 lg:grid-cols-4 lg:gap-x-12 lg:py-14"
-        >
-          {facts.map((fact, index) => (
-            <RevealItem key={fact.label} as="li" className="group relative">
-              <div className="border-line relative border-t pt-5">
-                <span
-                  aria-hidden="true"
-                  className="bg-bronze absolute -top-px left-0 h-[2px] w-12 transition-[width] duration-700 ease-(--ease-out-expo) [@media(hover:hover)]:group-hover:w-full"
-                />
-                <span
-                  aria-hidden="true"
-                  className="text-bronze-deep text-[0.6875rem] font-semibold tracking-[0.2em] tabular-nums"
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <dl className="mt-3">
-                  <dt className="text-taupe-deep text-[0.6875rem] font-semibold tracking-[0.2em] uppercase">
-                    {fact.label}
-                  </dt>
-                  <dd className="font-heading mt-2 text-[1.4rem] leading-[1.15] text-balance sm:text-[1.75rem] lg:text-[2rem]">
-                    {fact.value}
-                  </dd>
-                </dl>
-              </div>
-            </RevealItem>
-          ))}
-        </RevealGroup>
-      </div>{" "}
+      <FactsStrip />
     </>
   );
 }

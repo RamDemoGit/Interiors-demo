@@ -1,11 +1,9 @@
+import Image from "next/image";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
-/**
- * Monogram + text wordmark. Swap for the real logo once `TODO_VERIFY_LOGO_PATH`
- * is supplied (needs final dimensions, so it is intentionally not wired yet).
- */
+/** Four-petal mark (public/logos/lahima-mark.png) beside the text wordmark. */
 export function Logo({
   className,
   onClick,
@@ -23,12 +21,16 @@ export function Logo({
         className,
       )}
     >
-      <span
+      <Image
+        src="/logos/lahima-mark.png"
+        alt=""
         aria-hidden="true"
-        className="font-heading border-bronze text-bronze-deep group-hover:bg-bronze-deep grid h-9 w-9 shrink-0 place-items-center border text-[1.6rem] leading-none font-semibold transition-colors duration-500 group-hover:text-white min-[400px]:h-10 min-[400px]:w-10 sm:h-11 sm:w-11"
-      >
-        L
-      </span>
+        width={700}
+        height={713}
+        priority
+        sizes="48px"
+        className="h-9 w-auto shrink-0 transition-transform duration-700 ease-(--ease-out-expo) group-hover:rotate-[90deg] min-[400px]:h-10 sm:h-12"
+      />
       <span className="flex flex-col leading-none">
         <span className="font-heading text-[1.05rem] font-semibold tracking-[0.1em] uppercase min-[400px]:text-[1.25rem] min-[400px]:tracking-[0.14em] sm:text-[1.45rem]">
           Lahima <span className="text-bronze-deep">In-Des</span>

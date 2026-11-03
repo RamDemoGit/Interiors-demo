@@ -30,9 +30,9 @@ const ARCHITECTURE = ["architectural-design-spatial-concepts"];
 
 const seeds: Seed[] = [
   {
-    slug: "saidapet-residence-interior",
-    title: "Saidapet Residence Interior",
-    location: "Saidapet",
+    slug: "1200-sq-ft-residence-interior",
+    title: "1,200 sq ft Residence Interior",
+    location: "Chennai",
     category: "Residential",
     filterTags: ["residential"],
     areaSqFt: 1200,
@@ -43,9 +43,9 @@ const seeds: Seed[] = [
     featured: true,
   },
   {
-    slug: "velachery-residence-interior",
-    title: "Velachery Residence Interior",
-    location: "Velachery",
+    slug: "1700-sq-ft-residence-interior",
+    title: "1,700 sq ft Residence Interior",
+    location: "Chennai",
     category: "Residential",
     filterTags: ["residential"],
     areaSqFt: 1700,
@@ -53,12 +53,11 @@ const seeds: Seed[] = [
     status: "photograph",
     relatedServices: RESIDENTIAL,
     image: "dining",
-    featured: true,
   },
   {
-    slug: "urapakkam-residence-interior",
-    title: "Urapakkam Residence Interior",
-    location: "Urapakkam",
+    slug: "2400-sq-ft-residence-interior",
+    title: "2,400 sq ft Residence Interior",
+    location: "Chennai",
     category: "Residential",
     filterTags: ["residential"],
     areaSqFt: 2400,
@@ -66,12 +65,11 @@ const seeds: Seed[] = [
     status: "photograph",
     relatedServices: RESIDENTIAL,
     image: "hero",
-    featured: true,
   },
   {
-    slug: "perumbakkam-school-interior",
-    title: "Perumbakkam School Interior",
-    location: "Perumbakkam",
+    slug: "school-interior",
+    title: "School Interior",
+    location: "Chennai",
     category: "Institution",
     filterTags: ["institutional"],
     areaSqFt: 5000,
@@ -82,9 +80,9 @@ const seeds: Seed[] = [
     featured: true,
   },
   {
-    slug: "omr-navalur-hotel-concept",
-    title: "OMR-Navalur Hotel Concept",
-    location: "OMR-Navalur",
+    slug: "hotel-concept",
+    title: "Hotel Concept",
+    location: "Chennai",
     category: "Hospitality",
     filterTags: ["hospitality"],
     areaSqFt: 8000,
@@ -95,9 +93,9 @@ const seeds: Seed[] = [
     featured: true,
   },
   {
-    slug: "ecr-residence-concept",
-    title: "ECR Residence Concept",
-    location: "ECR",
+    slug: "2200-sq-ft-residence-concept",
+    title: "2,200 sq ft Residence Concept",
+    location: "Chennai",
     category: "Residential",
     filterTags: ["residential"],
     areaSqFt: 2200,
@@ -107,9 +105,9 @@ const seeds: Seed[] = [
     image: "villaEcr",
   },
   {
-    slug: "t-nagar-urban-oasis-proposal",
-    title: "T. Nagar Urban Oasis Proposal",
-    location: "T. Nagar",
+    slug: "urban-oasis-proposal",
+    title: "Urban Oasis Proposal",
+    location: "Chennai",
     category: "Public space",
     filterTags: ["architecture-concepts"],
     areaSqFt: 4500,
@@ -119,9 +117,10 @@ const seeds: Seed[] = [
     image: "urbanOasis",
   },
   {
-    slug: "coimbatore-cafe-concept",
-    title: "Coimbatore Café Concept",
-    location: "Coimbatore",
+    slug: "900-sq-ft-cafe-concept",
+    featured: true,
+    title: "900 sq ft Café Concept",
+    location: "South India",
     category: "Café",
     filterTags: ["hospitality"],
     areaSqFt: 900,
@@ -131,9 +130,10 @@ const seeds: Seed[] = [
     image: "cafeCoimbatore",
   },
   {
-    slug: "rk-salai-boutique-interior",
-    title: "R. K. Salai Boutique Interior",
-    location: "R. K. Salai",
+    slug: "boutique-interior",
+    featured: true,
+    title: "Boutique Interior",
+    location: "Chennai",
     category: "Retail",
     filterTags: ["commercial-retail"],
     areaSqFt: 1200,
@@ -143,9 +143,9 @@ const seeds: Seed[] = [
     image: "retail",
   },
   {
-    slug: "trichy-residence-interior",
-    title: "Trichy Residence Interior",
-    location: "Trichy",
+    slug: "5000-sq-ft-residence-interior",
+    title: "5,000 sq ft Residence Interior",
+    location: "South India",
     category: "Residential",
     filterTags: ["residential"],
     areaSqFt: 5000,
@@ -155,9 +155,9 @@ const seeds: Seed[] = [
     image: "bedroom",
   },
   {
-    slug: "alandur-compact-residence-interior",
-    title: "Alandur Compact Residence Interior",
-    location: "Alandur",
+    slug: "compact-residence-interior",
+    title: "Compact Residence Interior",
+    location: "Chennai",
     category: "Residential",
     filterTags: ["residential"],
     areaSqFt: 110,
@@ -165,11 +165,10 @@ const seeds: Seed[] = [
     status: "photograph",
     relatedServices: RESIDENTIAL,
     image: "compact",
-    featured: true,
   },
   {
-    slug: "bengaluru-office-lobby-concept",
-    title: "Bengaluru Office Lobby Concept",
+    slug: "office-lobby-concept",
+    title: "Office Lobby Concept",
     location: "Bengaluru",
     category: "Office",
     filterTags: ["workplaces"],
@@ -180,9 +179,9 @@ const seeds: Seed[] = [
     image: "officeLobby",
   },
   {
-    slug: "t-nagar-bedroom-transformation",
-    title: "T. Nagar Bedroom Transformation",
-    location: "T. Nagar",
+    slug: "bedroom-transformation",
+    title: "Bedroom Transformation",
+    location: "Chennai",
     category: "Residential / Renovation",
     filterTags: ["residential", "renovation"],
     areaSqFt: 150,
@@ -192,9 +191,9 @@ const seeds: Seed[] = [
     image: "roomBedroom",
   },
   {
-    slug: "cochin-mixed-use-building-concept",
-    title: "Cochin Mixed-Use Building Concept",
-    location: "Cochin",
+    slug: "4000-sq-ft-mixed-use-building-concept",
+    title: "4,000 sq ft Mixed-Use Building Concept",
+    location: "South India",
     category: "Architecture",
     filterTags: ["architecture-concepts"],
     areaSqFt: 4000,
@@ -204,9 +203,9 @@ const seeds: Seed[] = [
     image: "mixedUseCochin",
   },
   {
-    slug: "kilpauk-cafe-concept",
-    title: "Kilpauk Café Concept",
-    location: "Kilpauk",
+    slug: "2000-sq-ft-cafe-concept",
+    title: "2,000 sq ft Café Concept",
+    location: "Chennai",
     category: "Café",
     filterTags: ["hospitality"],
     areaSqFt: 2000,
@@ -216,9 +215,9 @@ const seeds: Seed[] = [
     image: "cafeKilpauk",
   },
   {
-    slug: "tambaram-spa-concept",
-    title: "Tambaram Spa Concept",
-    location: "Tambaram",
+    slug: "spa-concept",
+    title: "Spa Concept",
+    location: "Chennai",
     category: "Hospitality / Spa",
     filterTags: ["hospitality"],
     areaSqFt: 1600,
@@ -228,9 +227,10 @@ const seeds: Seed[] = [
     image: "spa",
   },
   {
-    slug: "adambakkam-office-interior",
-    title: "Adambakkam Office Interior",
-    location: "Adambakkam",
+    slug: "office-interior",
+    featured: true,
+    title: "Office Interior",
+    location: "Chennai",
     category: "Office",
     filterTags: ["workplaces"],
     areaSqFt: 200,
@@ -240,9 +240,9 @@ const seeds: Seed[] = [
     image: "workspace",
   },
   {
-    slug: "salem-mixed-use-building-concept",
-    title: "Salem Mixed-Use Building Concept",
-    location: "Salem",
+    slug: "2500-sq-ft-mixed-use-building-concept",
+    title: "2,500 sq ft Mixed-Use Building Concept",
+    location: "South India",
     category: "Architecture",
     filterTags: ["architecture-concepts"],
     areaSqFt: 2500,
@@ -252,9 +252,9 @@ const seeds: Seed[] = [
     image: "mixedUseSalem",
   },
   {
-    slug: "pallikaranai-residence-concept",
-    title: "Pallikaranai Residence Concept",
-    location: "Pallikaranai",
+    slug: "10400-sq-ft-residence-concept",
+    title: "10,400 sq ft Residence Concept",
+    location: "Chennai",
     category: "Architecture",
     filterTags: ["architecture-concepts"],
     areaSqFt: 10400,
@@ -265,26 +265,66 @@ const seeds: Seed[] = [
   },
 ];
 
-export const projects: Project[] = seeds.map(({ image, ...seed }) => ({
-  ...seed,
-  overview: "",
-  designFocus: "",
-  galleryCopy: "",
-  images: [referenceImages[image]],
-}));
+/** Commercial work leads every list; purely residential projects follow. */
+const isResidential = (p: { filterTags: ProjectFilter[] }) =>
+  p.filterTags.includes("residential") ? 1 : 0;
+
+/**
+ * Every project shows exactly three images: its main image plus the two
+ * below. Projects whose imagery is a photograph only use photographic extras.
+ */
+const galleryExtras: Record<string, [ReferenceKey, ReferenceKey]> = {
+  "1200-sq-ft-residence-interior": ["roomLiving", "kitchen"],
+  "1700-sq-ft-residence-interior": ["roomDining", "residentialHome"],
+  "2400-sq-ft-residence-interior": ["pooja", "flooring"],
+  "school-interior": ["institution", "windows"],
+  "hotel-concept": ["hotelLobby", "ceilingHospitality"],
+  "2200-sq-ft-residence-concept": ["ceilingLiving", "improvement"],
+  "urban-oasis-proposal": ["architectureConcept", "elevation"],
+  "900-sq-ft-cafe-concept": ["restaurant", "customDetails"],
+  "boutique-interior": ["showroom", "epoxyFloor"],
+  "5000-sq-ft-residence-interior": ["roomBedroom", "windows"],
+  "compact-residence-interior": ["renovation", "windows"],
+  "office-lobby-concept": ["ceilingOffice", "hvac"],
+  "bedroom-transformation": ["renovation", "improvement"],
+  "4000-sq-ft-mixed-use-building-concept": ["elevation", "glassFitting"],
+  "2000-sq-ft-cafe-concept": ["ceilingHospitality", "spa"],
+  "spa-concept": ["customDetails", "hotelLobby"],
+  "office-interior": ["boardroom", "corporateFloor"],
+  "2500-sq-ft-mixed-use-building-concept": ["architectureConcept", "urbanOasis"],
+  "10400-sq-ft-residence-concept": ["villaEcr", "architectureConcept"],
+};
+
+export const projects: Project[] = seeds
+  .map(({ image, ...seed }) => ({
+    ...seed,
+    overview: "",
+    designFocus: "",
+    galleryCopy: "",
+    images: [image, ...(galleryExtras[seed.slug] ?? [])].map((key) => referenceImages[key]),
+  }))
+  .sort((a, b) => isResidential(a) - isResidential(b));
 
 export const featuredProjects = projects.filter((p) => p.featured);
+
+/**
+ * Every non-residential project: retail, workplaces, hospitality,
+ * institutional and architectural / mixed-use concepts.
+ */
+export const commercialProjects = projects.filter(
+  (p) => !p.filterTags.includes("residential") && !p.slug.includes("residence"),
+);
 
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug);
 
 export const projectFilters: { value: ProjectFilter | "all"; label: string }[] = [
   { value: "all", label: "All" },
-  { value: "residential", label: "Residential" },
   { value: "commercial-retail", label: "Commercial & Retail" },
   { value: "workplaces", label: "Workplaces" },
   { value: "hospitality", label: "Hospitality" },
   { value: "institutional", label: "Institutional" },
   { value: "architecture-concepts", label: "Architecture & Concepts" },
+  { value: "residential", label: "Residential" },
   { value: "renovation", label: "Renovation" },
 ];
 

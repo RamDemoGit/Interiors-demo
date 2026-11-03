@@ -15,7 +15,7 @@ export function CtaBand() {
             <RevealItem effect="wipe">
               <h2 className="text-ivory max-w-3xl text-[2.4rem] leading-[1.05] sm:text-6xl lg:text-[4.5rem]">
                 Planning a home, workplace or{" "}
-                <em className="text-espresso italic">space?</em>
+                <em className="text-[#bfe3d3] italic">space?</em>
               </h2>
             </RevealItem>
             <RevealItem>
@@ -35,7 +35,7 @@ export function CtaBand() {
           <Reveal delay={0.3} className="mt-10 flex items-center gap-5">
             <span aria-hidden="true" className="bg-ivory/60 h-px w-14" />
             <p className="text-ivory/85 text-xs font-semibold tracking-[0.22em] uppercase">
-              {siteConfig.address.locality}, {siteConfig.address.city} &middot; Since{" "}
+              {siteConfig.address.city} &middot; Since{" "}
               {siteConfig.established}
             </p>
           </Reveal>

@@ -6,9 +6,10 @@ import { CtaBand } from "@/components/sections/CtaBand";
 import { PracticeMix } from "@/components/sections/PracticeMix";
 import { ArrowLink } from "@/components/ui/ArrowLink";
 import { PageHero } from "@/components/ui/PageHero";
-import { Photo } from "@/components/ui/Photo";
+import { ImageTrio } from "@/components/ui/ImageTrio";
+import { LocationMap, type MapLocation } from "@/components/ui/LocationMap";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { siteConfig, workMix } from "@/config/site";
+import { founderDisplay, siteConfig } from "@/config/site";
 import { referenceImages } from "@/content/images";
 import { projects } from "@/content/projects";
 import { services } from "@/content/services";
@@ -16,7 +17,7 @@ import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
   title: "About Us, Architects in Chennai",
-  description: `${siteConfig.legalName}: architecture and interior design practice in ${siteConfig.address.locality}, Chennai, established in ${siteConfig.established}.`,
+  description: `${siteConfig.legalName}: architecture and interior design practice in Chennai, established in ${siteConfig.established}.`,
   path: "/about",
 });
 
@@ -24,16 +25,24 @@ const milestones = [
   { label: "Established", value: `${siteConfig.established}` },
   {
     label: "Studio",
-    value: `${siteConfig.address.locality}, ${siteConfig.address.city}`,
+    value: `${siteConfig.address.city}`,
   },
   { label: "Serving", value: siteConfig.areaServed.join(" & ") },
-  { label: "Our work", value: `${workMix.commercial}% commercial` },
+  { label: "Our work", value: "Commercial & Residential" },
 ];
 
 // Unique project locations straight from the portfolio data.
-const locations = Array.from(new Set(projects.map((p) => p.location))).sort((a, b) =>
-  a.localeCompare(b),
-);
+const locations: MapLocation[] = Array.from(new Set(projects.map((p) => p.location)))
+  .sort((a, b) => a.localeCompare(b))
+  .map((name) => {
+    const inPlace = projects.filter((p) => p.location === name);
+    return {
+      name,
+      count: inPlace.length,
+      photographs: inPlace.filter((p) => p.status === "photograph").length,
+      visualizations: inPlace.filter((p) => p.status === "visualization").length,
+    };
+  });
 
 const smallest = Math.min(...projects.map((p) => p.areaSqFt));
 const largest = Math.max(...projects.map((p) => p.areaSqFt));
@@ -49,7 +58,7 @@ export default function AboutPage() {
       <PageHero
         eyebrow="The practice"
         title="About Us"
-        lead={`Established in ${siteConfig.established} by ${siteConfig.founder}, with a studio in ${siteConfig.address.locality}, ${siteConfig.address.city}.`}
+        lead={`Established in ${siteConfig.established} by ${founderDisplay}, with a studio in ${siteConfig.address.city}.`}
         crumbs={[{ label: "About Us" }]}
         image="officeLobby"
         variant="curtain"
@@ -64,7 +73,7 @@ export default function AboutPage() {
           </p>
           <ScrubText
             className="font-heading max-w-5xl text-[clamp(1.75rem,1.1rem+3vw,3.6rem)] leading-[1.15]"
-            text={`One studio in ${siteConfig.address.locality}, ${siteConfig.address.city}, designing architecture and interiors for commercial spaces and homes across ${siteConfig.areaServed.join(" and ")} since ${siteConfig.established}.`}
+            text={`One studio in ${siteConfig.address.city}, designing architecture and interiors for commercial spaces and homes across ${siteConfig.areaServed.join(" and ")} since ${siteConfig.established}.`}
           />
         </div>
       </section>
@@ -73,11 +82,14 @@ export default function AboutPage() {
       <section className="bg-white py-20 md:py-28">
         <div className="container-site grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
-            <Photo
-              image={referenceImages.dining}
-              ratio="aspect-[4/5]"
+            <ImageTrio
+              images={[
+                referenceImages.boardroom,
+                referenceImages.workspace,
+                referenceImages.hotelLobby,
+              ]}
+              ratio="aspect-[4/3]"
               sizes="(min-width: 1024px) 38vw, 100vw"
-              parallax
             />
           </div>
           <div className="lg:col-span-7 lg:pl-6">
@@ -91,15 +103,19 @@ export default function AboutPage() {
             >
               <p>
                 {siteConfig.legalName} is an architecture and interior design practice
-                based in {siteConfig.address.locality}, {siteConfig.address.city}. It was
-                established in {siteConfig.established} by {siteConfig.founder}.
+                based in {siteConfig.address.city}. It was established in{" "}
+                {siteConfig.established} by {founderDisplay}.
               </p>
               <p>
-                From the {siteConfig.address.locality} studio, the practice works across{" "}
+                From its Chennai studio, the practice works across{" "}
                 {siteConfig.areaServed.join(" and ")} on commercial spaces, homes,
                 workplaces, retail and hospitality, institutional interiors and
-                architectural concepts. About {workMix.commercial}% of its work is
-                commercial and about {workMix.homes}% is homes.
+                architectural concepts, on both the commercial and the residential side.
+              </p>
+              <p className="border-bronze text-espresso border-l-2 pl-5 text-[1.125rem]">
+                Our design team has a fine arts background. That training shapes how we
+                see space, colour, proportion and detail, in commercial spaces and in
+                homes alike.
               </p>
               <p>
                 The portfolio runs from a compact residence of {fmt.format(smallest)} sq
@@ -138,16 +154,15 @@ export default function AboutPage() {
               <span aria-hidden="true" className="bg-bronze h-px w-10" />
               Founder
             </p>
-            <h2>{siteConfig.founder}</h2>
+            <h2>{founderDisplay}</h2>
           </Reveal>
           <Reveal
             delay={0.1}
             className="text-taupe-deep max-w-xl space-y-5 text-[1.0625rem] lg:col-span-7"
           >
             <p>
-              {siteConfig.founder} founded {siteConfig.name} in {siteConfig.established}{" "}
-              and the practice continues from its {siteConfig.address.locality} studio in{" "}
-              {siteConfig.address.city}.
+              {founderDisplay} founded {siteConfig.name} in {siteConfig.established} and
+              the practice continues from its studio in {siteConfig.address.city}.
             </p>
             <ArrowLink href="/contact">Speak with the studio</ArrowLink>
           </Reveal>
@@ -159,7 +174,7 @@ export default function AboutPage() {
         <div className="container-site">
           <SectionHeading
             eyebrow="What we design"
-            title="Eight services, one studio."
+            title={`${services.length} services, one studio.`}
             className="mb-12"
           />
           <RevealGroup as="ul" className="border-line grid border-t sm:grid-cols-2">
@@ -202,15 +217,7 @@ export default function AboutPage() {
             title="Projects across Chennai and South India."
             lead="Locations from the portfolio, each project labelled as a photograph or a design visualization."
           />
-          <RevealGroup as="ul" className="mt-10 flex flex-wrap gap-3">
-            {locations.map((place) => (
-              <RevealItem key={place} as="li">
-                <span className="border-line text-espresso inline-flex min-h-11 items-center rounded-sm border px-5 text-sm font-medium">
-                  {place}
-                </span>
-              </RevealItem>
-            ))}
-          </RevealGroup>
+          <LocationMap locations={locations} />
           <Reveal className="mt-10">
             <ArrowLink href="/projects">View projects</ArrowLink>
           </Reveal>

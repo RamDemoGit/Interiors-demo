@@ -107,7 +107,7 @@ export function MobileMenu({ open, pathname, onClose }: Props) {
           </button>
           <div className="text-taupe-deep space-y-1 text-sm">
             <p>
-              {siteConfig.address.locality}, {siteConfig.address.city} &middot; Since{" "}
+              {siteConfig.address.city} &middot; Since{" "}
               {siteConfig.established}
             </p>
             <p>

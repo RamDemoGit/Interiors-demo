@@ -49,7 +49,26 @@ export type ReferenceKey =
   | "homeLiving"
   | "homeKitchen"
   | "boardroom"
-  | "corporateFloor";
+  | "corporateFloor"
+  | "ceilingLiving"
+  | "ceilingOffice"
+  | "ceilingHospitality"
+  | "epoxyFloor"
+  | "hvac"
+  | "furnitureCustom"
+  | "elevation"
+  | "glassFitting"
+  | "instCorridor"
+  | "glassStorefront"
+  | "glassRailing"
+  | "epoxyWorkshop"
+  | "epoxyCorridor"
+  | "hvacCafe"
+  | "hvacHome"
+  | "wardrobeUnit"
+  | "tvUnit"
+  | "kitchenCabinets"
+  | "poojaModern";
 
 export const referenceImages: Record<ReferenceKey, ProjectImage> = {
   living: {
@@ -291,5 +310,119 @@ export const referenceImages: Record<ReferenceKey, ProjectImage> = {
     alt: "Corporate open-plan office floor with white workstations and glass-fronted meeting rooms (design visualization)",
     width: 1920,
     height: 1080,
+  },
+  ceilingLiving: {
+    src: "/reference/ceiling-living.jpg",
+    alt: "Living room ceiling with a timber slatted panel, cove lighting and a globe chandelier (design visualization)",
+    width: 1600,
+    height: 1200,
+  },
+  ceilingOffice: {
+    src: "/reference/ceiling-office.jpg",
+    alt: "Office reception ceiling with timber baffles, linear lights and a curved lit drop ceiling (design visualization)",
+    width: 1600,
+    height: 1200,
+  },
+  ceilingHospitality: {
+    src: "/reference/ceiling-hospitality.jpg",
+    alt: "Coffered hospitality ceiling with brass trim, cove lighting and round pendant lights (design visualization)",
+    width: 1600,
+    height: 1200,
+  },
+  epoxyFloor: {
+    src: "/reference/service-epoxy.jpg",
+    alt: "Showroom with a seamless glossy grey epoxy floor and track lighting (design visualization)",
+    width: 1600,
+    height: 1200,
+  },
+  hvac: {
+    src: "/reference/service-hvac.jpg",
+    alt: "Office with ceiling cassette air conditioners and linear air diffusers (design visualization)",
+    width: 1600,
+    height: 1200,
+  },
+  furnitureCustom: {
+    src: "/reference/service-furniture.jpg",
+    alt: "Custom walnut and fluted ivory wardrobe, shelving and study desk unit (design visualization)",
+    width: 1600,
+    height: 1200,
+  },
+  elevation: {
+    src: "/reference/service-elevation.jpg",
+    alt: "Commercial building elevation with stone cladding, glass, vertical fins and a lit canopy at dusk (design visualization)",
+    width: 1600,
+    height: 1200,
+  },
+  glassFitting: {
+    src: "/reference/service-glass.jpg",
+    alt: "Frameless glass partition and door enclosing a meeting room (design visualization)",
+    width: 1600,
+    height: 1200,
+  },
+  instCorridor: {
+    src: "/reference/services/svc-institution-corridor.jpg",
+    alt: "School or college corridor with timber lockers, window seating and a polished floor (design visualization)",
+    width: 1024,
+    height: 768,
+  },
+  glassStorefront: {
+    src: "/reference/services/svc-glass-storefront.jpg",
+    alt: "Frameless glass storefront and door set into a stone-clad facade at dusk (design visualization)",
+    width: 1024,
+    height: 768,
+  },
+  glassRailing: {
+    src: "/reference/services/svc-glass-railing.jpg",
+    alt: "Timber staircase with a frameless glass balustrade and steel handrail (design visualization)",
+    width: 1024,
+    height: 768,
+  },
+  epoxyWorkshop: {
+    src: "/reference/services/svc-epoxy-workshop.jpg",
+    alt: "Workshop with a seamless glossy epoxy floor and yellow safety lane markings (design visualization)",
+    width: 1024,
+    height: 768,
+  },
+  epoxyCorridor: {
+    src: "/reference/services/svc-epoxy-corridor.jpg",
+    alt: "Office corridor with a seamless glossy sand-coloured epoxy floor and glass partitions (design visualization)",
+    width: 1024,
+    height: 768,
+  },
+  hvacCafe: {
+    src: "/reference/services/svc-hvac-cafe.jpg",
+    alt: "Cafe ceiling with cassette air conditioners and slim linear diffusers beside pendant lights (design visualization)",
+    width: 1024,
+    height: 768,
+  },
+  hvacHome: {
+    src: "/reference/services/svc-hvac-home.jpg",
+    alt: "Living room with a flush linear air diffuser in a cove-lit false ceiling (design visualization)",
+    width: 1024,
+    height: 768,
+  },
+  wardrobeUnit: {
+    src: "/reference/scope/scope-bedroom-wardrobes.jpg",
+    alt: "Full-height wardrobe with fluted walnut and ivory sliding doors (design visualization)",
+    width: 1024,
+    height: 768,
+  },
+  tvUnit: {
+    src: "/reference/scope/scope-living-tv.jpg",
+    alt: "Floating walnut TV unit with backlit open shelving (design visualization)",
+    width: 1024,
+    height: 768,
+  },
+  kitchenCabinets: {
+    src: "/reference/scope/scope-kitchen-cabinets.jpg",
+    alt: "Kitchen cabinetry in matte ivory and walnut with under-cabinet lighting (design visualization)",
+    width: 1024,
+    height: 768,
+  },
+  poojaModern: {
+    src: "/reference/scope/scope-pooja-modern.jpg",
+    alt: "Modern wall-mounted pooja unit with a backlit panel (design visualization)",
+    width: 1024,
+    height: 768,
   },
 };

@@ -73,7 +73,7 @@ export function ProjectsExplorer({
       </nav>
 
       <p className="sr-only" role="status" aria-live="polite">
-        Showing {visible.length} projects
+        {`Showing ${visible.length} project${visible.length === 1 ? "" : "s"}`}
       </p>
 
       <RevealGroup
@@ -87,6 +87,7 @@ export function ProjectsExplorer({
               project={project}
               ratio="aspect-[4/3]"
               reveal={false}
+              trio
               hover="frame"
             />
           </RevealItem>

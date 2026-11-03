@@ -50,7 +50,7 @@ export default function TestimonialsPage() {
         title="Testimonials"
         lead="Your experience of working with the studio matters to us."
         crumbs={[{ label: "Testimonials" }]}
-        image="compact"
+        image="boardroom"
         variant="curtain"
       />
 
@@ -58,7 +58,7 @@ export default function TestimonialsPage() {
         <div className="container-site grid items-center gap-14 lg:grid-cols-12 lg:gap-16">
           <div className="relative lg:col-span-5">
             <Photo
-              image={referenceImages.windows}
+              image={referenceImages.spa}
               ratio="aspect-[4/5]"
               sizes="(min-width: 1024px) 40vw, 100vw"
               parallax

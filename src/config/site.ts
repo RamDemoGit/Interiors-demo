@@ -57,8 +57,8 @@ export const siteConfig = {
   legalName: "Lahima In-Des | Architects & Engineers",
   shortDescriptor: "Architects & Engineers",
   tagline: "Designing Spaces. Defining Experiences.",
-  established: 1995,
-  founder: "A. P. Balasubramaniam",
+  established: 2004,
+  founder: "AP Balasubramaniam",
   url: SITE_URL,
   locale: "en_IN",
   language: "en-IN",
@@ -76,10 +76,29 @@ export const siteConfig = {
 } as const;
 
 /**
- * Owner-supplied approximate split of the practice's work. Shown on the site
- * as an approximate share ("about 75%"). Update here if the mix changes.
+ * The founder's name with a non-breaking space, so it never wraps across
+ * two lines on screen. Use for visible text; use `siteConfig.founder` for
+ * metadata and structured data.
  */
-export const workMix = { commercial: 75, homes: 25 } as const;
+export const founderDisplay = siteConfig.founder.replace(/ /g, "\u00A0");
+
+/** The two sides of the practice (no percentages are shown). */
+export const workAreas = ["Commercial", "Residential"] as const;
+
+/** Kinds of work offered on both the commercial and the residential side. */
+export const workCategories = [
+  "Interior",
+  "Construction",
+  "Fabrication",
+  "Landscaping",
+  "Architecture",
+] as const;
+
+/** Owner-supplied practice figures (update here if they change). */
+export const achievements = {
+  projectsCompleted: 1200,
+  yearsOfExperience: 20,
+} as const;
 
 /* -------------------------------------------------------------------------- */
 /* Feature flags                                                              */

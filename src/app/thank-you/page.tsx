@@ -17,7 +17,7 @@ export default function ThankYouPage() {
         eyebrow="Enquiry received"
         title="Thank you"
         crumbs={[{ label: "Thank you" }]}
-        image="bedroom"
+        image="hotelLobby"
       />
       <section className="bg-white py-16 md:py-24">
         <div className="container-site flex flex-wrap gap-4">

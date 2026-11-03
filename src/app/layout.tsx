@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   // Temporary default. Every route sets its own description in Phase 5.
-  description: "Architects and interior designers in Chennai, established in 1995.",
+  description: "Architects and interior designers in Chennai, established in 2004.",
   applicationName: siteConfig.name,
   alternates: { canonical: "/" },
   openGraph: {

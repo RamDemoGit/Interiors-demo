@@ -1,5 +1,6 @@
 import { Marquee } from "@/components/animation/Marquee";
 import { ScrollTextBand } from "@/components/animation/ScrollEffects";
+import { Achievements } from "@/components/sections/Achievements";
 import { Consultancy } from "@/components/sections/Consultancy";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { FeaturedProjects } from "@/components/sections/FeaturedProjects";
@@ -24,6 +25,7 @@ export default function HomePage() {
         <Marquee label="Our services" items={services.map((s) => s.name)} />
       </div>
       <Welcome />
+      <Achievements />
       <PracticeMix />
       <ServicesGrid />
       <ScopeOfWork />

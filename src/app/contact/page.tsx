@@ -6,14 +6,14 @@ import { siteConfig, verifiedContact } from "@/config/site";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Contact Our T. Nagar, Chennai Studio",
+  title: "Contact Our Chennai Studio",
   description:
-    "Contact Lahima In-Des | Architects & Engineers, T. Nagar, Chennai, to discuss your home, office or commercial interior project.",
+    "Contact Lahima In-Des | Architects & Engineers, Chennai, to discuss your home, office or commercial interior project.",
   path: "/contact",
 });
 
 /**
- * Contact. Only verified details render: email and the T. Nagar locality.
+ * Contact. Only verified details render: email and the studio city.
  * Phone, street address, map, hours and WhatsApp appear only when filled in
  * `config/site.ts`.
  */
@@ -26,7 +26,7 @@ export default function ContactPage() {
       content: (
         <>
           {verifiedContact.streetAddress ? `${verifiedContact.streetAddress}, ` : ""}
-          {address.locality}, {address.city}
+          {address.city}
           {verifiedContact.postalCode ? ` ${verifiedContact.postalCode}` : ""}
         </>
       ),
@@ -65,9 +65,9 @@ export default function ContactPage() {
       <PageHero
         eyebrow="Discuss your project"
         title="Contact"
-        lead={`Tell us about your space. The studio is in ${address.locality}, ${address.city}, and works across ${siteConfig.areaServed.join(" and ")}.`}
+        lead={`Tell us about your space. The studio is in ${address.city}, and works across ${siteConfig.areaServed.join(" and ")}.`}
         crumbs={[{ label: "Contact" }]}
-        image="compact"
+        image="corporateFloor"
         variant="slide"
       />
 
@@ -118,9 +118,8 @@ export default function ContactPage() {
                   Tell us about your project.
                 </h2>
                 <p className="text-taupe-deep mb-8 text-[0.9375rem]">
-                  {verifiedContact.whatsappUrl
-                    ? "Fill in the form, then send it from your own email app or on WhatsApp. Your details are filled in for you."
-                    : "Fill in the form and your email app opens with your details filled in. Just press send."}
+                  Fill in the form, then send it from your own email app or on WhatsApp.
+                  Your details are filled in for you.
                 </p>
                 <EnquiryForm />
               </div>

@@ -4,8 +4,7 @@ import { useRef, type ReactNode } from "react";
 import { useEnquiry } from "@/components/forms/EnquiryModal";
 
 /**
- * Closing stage on a warm bronze field (so it reads apart from the espresso
- * footer below). A soft light follows the pointer and a faint sheen drifts
+ * Closing stage on a deep green field. A soft light follows the pointer and a faint sheen drifts
  * across.
  */
 export function CtaStage({ children }: { children: ReactNode }) {
@@ -15,7 +14,7 @@ export function CtaStage({ children }: { children: ReactNode }) {
     <section
       ref={ref}
       aria-label="Start a conversation"
-      className="cta-stage from-bronze-deeper via-bronze-deep to-bronze text-ivory relative isolate overflow-hidden bg-gradient-to-br py-20 md:py-32"
+      className="cta-stage text-ivory relative isolate overflow-hidden bg-gradient-to-br from-[#10261f] via-[#1b4036] to-[#2b5a49] py-20 md:py-32"
       onPointerMove={(event) => {
         const el = ref.current;
         if (!el || event.pointerType === "touch") return;
@@ -68,7 +67,7 @@ export function EnquiryOrb({ label }: { label: string }) {
       <svg
         aria-hidden="true"
         viewBox="0 0 200 200"
-        className="orb-ring text-ivory absolute inset-0 size-full"
+        className="text-ivory absolute inset-0 size-full"
       >
         <defs>
           <path
@@ -85,7 +84,7 @@ export function EnquiryOrb({ label }: { label: string }) {
 
       <span
         aria-hidden="true"
-        className="border-ivory/30 absolute inset-[3.2rem] rounded-full border sm:inset-[3.8rem]"
+        className="border-ivory/40 absolute inset-[3.2rem] rounded-full border sm:inset-[3.8rem]"
       />
 
       <button
@@ -93,7 +92,7 @@ export function EnquiryOrb({ label }: { label: string }) {
         type="button"
         onClick={open}
         aria-label={label}
-        className="orb group bg-espresso text-ivory hover:text-espresso focus-visible:text-espresso relative flex size-[7.5rem] items-center justify-center overflow-hidden rounded-full transition-[transform,color,box-shadow] duration-300 ease-out sm:size-[8.5rem]"
+        className="orb group border-ivory/50 text-ivory relative flex size-[7.5rem] items-center justify-center overflow-hidden rounded-full border bg-[#0b1d17] transition-[transform,color,box-shadow] duration-300 ease-out hover:text-[#10261f] focus-visible:text-[#10261f] sm:size-[8.5rem]"
       >
         <span
           aria-hidden="true"
@@ -105,7 +104,7 @@ export function EnquiryOrb({ label }: { label: string }) {
           viewBox="0 0 24 24"
           fill="none"
           aria-hidden="true"
-          className="relative -rotate-45 transition-transform duration-500 ease-(--ease-out-expo) group-hover:rotate-0 group-focus-visible:rotate-0"
+          className="orb-arrow relative"
         >
           <path d="M4 12h15M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.4" />
         </svg>

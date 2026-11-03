@@ -4,15 +4,15 @@ import { CardMarquee } from "@/components/animation/CardMarquee";
 import { Coverflow, type CoverflowItem } from "@/components/animation/Coverflow";
 import { ReviewCard } from "@/components/ui/ClientCards";
 import { clientReviews } from "@/content/reviews";
-import { LogoMarquee } from "@/components/ui/LogoMarquee";
-import { clientLogos } from "@/content/brands";
+import { ClientLogoWall } from "@/components/ui/ClientLogoWall";
+import { getClientImages } from "@/lib/clientImages";
 import { Reveal, RevealGroup, RevealItem } from "@/components/animation/Reveal";
 import { CtaBand } from "@/components/sections/CtaBand";
 import Link from "next/link";
 import { PageHero } from "@/components/ui/PageHero";
 import { Photo } from "@/components/ui/Photo";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { featureFlags, siteConfig, workMix } from "@/config/site";
+import { featureFlags, siteConfig } from "@/config/site";
 import { projectFilters, projects, statusLabel } from "@/content/projects";
 import { buildMetadata } from "@/lib/seo";
 
@@ -56,11 +56,13 @@ const coverflowItems: CoverflowItem[] = projects
     image: p.images[0]!,
   }));
 
+const clientImages = getClientImages();
+
 const allPlaces = Array.from(new Set(projects.map((p) => p.location)));
 
 /**
- * Clientele. Paragraph copy only: client logos stay hidden until
- * `featureFlags.showClientLogos` is enabled with owner-approved assets.
+ * Clientele. The client logo wall appears once images are dropped into
+ * `public/clients/` (see the README there); until then it stays hidden.
  */
 export default function ClientelePage() {
   return (
@@ -91,15 +93,33 @@ export default function ClientelePage() {
               institutions shaping places to learn and gather.
             </p>
             <p>
-              About {workMix.commercial}% of the practice&rsquo;s work is commercial and
-              about {workMix.homes}% is homes. The portfolio reflects that range:
-              residences, a school, offices, cafés, a boutique, a spa, a hotel concept and
-              mixed-use building proposals, in Chennai and in other cities of South India.
+              The practice works on both the commercial and the residential side, and the
+              portfolio reflects that range: residences, a school, offices, cafés, a
+              boutique, a spa, a hotel concept and mixed-use building proposals, in
+              Chennai and in other cities of South India.
             </p>
           </Reveal>
         </div>
       </section>
 
+      {clientImages.length > 0 && (
+        <section
+          aria-label="Our clients"
+          className="bg-ivory overflow-hidden py-14 sm:py-20 md:py-24"
+        >
+          <div className="container-site">
+            <SectionHeading
+              eyebrow="Our clients"
+              title="Names behind the spaces."
+              lead="Tap any logo to view it full size."
+              className="mb-10 md:mb-12"
+            />
+          </div>
+          <Reveal>
+            <ClientLogoWall items={clientImages} />
+          </Reveal>
+        </section>
+      )}
       <section
         aria-label="Spaces and places we have worked in"
         className="bg-espresso overflow-hidden py-10 md:py-14"
@@ -247,33 +267,6 @@ export default function ClientelePage() {
         </div>
       </section>
 
-      {featureFlags.showClientLogos && clientLogos.length > 0 && (
-        <section aria-label="Our clients" className="bg-white py-16 sm:py-20 md:py-24">
-          <div className="container-site">
-            <SectionHeading
-              eyebrow="Our clients"
-              title="Names behind the spaces."
-              lead="Clients who have agreed to be listed."
-              className="mb-10 md:mb-12"
-            />
-          </div>
-          <Reveal className="space-y-2">
-            <LogoMarquee
-              items={clientLogos.slice(0, Math.ceil(clientLogos.length / 2))}
-              label="Our clients"
-              duration={45}
-            />
-            {clientLogos.length > 1 && (
-              <LogoMarquee
-                items={clientLogos.slice(Math.ceil(clientLogos.length / 2))}
-                label="More of our clients"
-                duration={52}
-                reverse
-              />
-            )}
-          </Reveal>
-        </section>
-      )}
       <CtaBand />
     </>
   );

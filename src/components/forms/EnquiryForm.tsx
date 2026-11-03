@@ -60,12 +60,15 @@ function Field({
  * Enquiry form. Validated with Zod. No server or email service is involved:
  * "Send by email" opens the visitor's own mail app with the enquiry filled in,
  * addressed to the studio (with a Gmail web fallback link). "Send on WhatsApp"
- * appears only when the WhatsApp number is verified in config/site.ts.
+ * opens WhatsApp with the same message; it goes straight to the studio once
+ * the WhatsApp number is verified in config/site.ts.
  * A honeypot field silently drops bot submissions.
  */
 export function EnquiryForm({ idPrefix = "" }: { idPrefix?: string }) {
   const [sent, setSent] = useState<{ gmail: string } | null>(null);
-  const whatsappUrl = verifiedContact.whatsappUrl;
+  // Without a verified studio number, wa.me opens WhatsApp with the message
+  // ready and the visitor picks the chat. Never an invented number.
+  const whatsappUrl = verifiedContact.whatsappUrl ?? "https://wa.me/";
   const id = (name: string) => `${idPrefix}${name}`;
 
   const {
@@ -103,7 +106,7 @@ export function EnquiryForm({ idPrefix = "" }: { idPrefix?: string }) {
     ].filter((l): l is string => l !== null);
     const text = lines.join("\n");
 
-    if (via === "whatsapp" && whatsappUrl) {
+    if (via === "whatsapp") {
       window.open(
         `${whatsappUrl}?text=${encodeURIComponent(text)}`,
         "_blank",
@@ -183,7 +186,7 @@ export function EnquiryForm({ idPrefix = "" }: { idPrefix?: string }) {
             id={id("location")}
             type="text"
             autoComplete="off"
-            placeholder="e.g. Velachery, Chennai"
+            placeholder="e.g. Chennai"
             aria-invalid={!!errors.location}
             aria-describedby={describedBy("location")}
             className={field}
@@ -290,17 +293,15 @@ export function EnquiryForm({ idPrefix = "" }: { idPrefix?: string }) {
           <MailIcon width={20} height={20} />
           Send by email
         </button>
-        {whatsappUrl && (
-          <button
-            type="button"
-            disabled={isSubmitting}
-            onClick={handleSubmit((d) => send(d, "whatsapp"))}
-            className="inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-sm bg-[#17794c] px-7 py-3.5 text-[0.8125rem] font-semibold tracking-[0.16em] text-white uppercase transition-colors duration-300 hover:bg-[#10603b] active:scale-[0.98] disabled:opacity-60 sm:w-auto"
-          >
-            <WhatsAppIcon width={20} height={20} />
-            Send on WhatsApp
-          </button>
-        )}
+        <button
+          type="button"
+          disabled={isSubmitting}
+          onClick={handleSubmit((d) => send(d, "whatsapp"))}
+          className="inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-sm bg-[#17794c] px-7 py-3.5 text-[0.8125rem] font-semibold tracking-[0.16em] text-white uppercase transition-colors duration-300 hover:bg-[#10603b] active:scale-[0.98] disabled:opacity-60 sm:w-auto"
+        >
+          <WhatsAppIcon width={20} height={20} />
+          Send on WhatsApp
+        </button>
       </div>
 
       <div role="status" aria-live="polite">

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { FaqList } from "@/components/sections/FaqList";
 import { PageHero } from "@/components/ui/PageHero";
-import { siteConfig, workMix } from "@/config/site";
+import { siteConfig } from "@/config/site";
 import { services } from "@/content/services";
 import { buildMetadata } from "@/lib/seo";
 
@@ -18,7 +18,7 @@ export const metadata: Metadata = buildMetadata({
 const faqs = [
   {
     question: "Who is Lahima In-Des | Architects & Engineers?",
-    answer: `${siteConfig.name} is an architecture and interior design practice established in ${siteConfig.established} by ${siteConfig.founder}, with its studio in ${siteConfig.address.locality}, ${siteConfig.address.city}.`,
+    answer: `${siteConfig.name} is an architecture and interior design practice established in ${siteConfig.established} by ${siteConfig.founder}, with its studio in ${siteConfig.address.city}.`,
   },
   {
     question: "Which services do you offer?",
@@ -39,7 +39,7 @@ const faqs = [
   },
   {
     question: "Do you take on both homes and commercial spaces?",
-    answer: `Yes. About ${workMix.commercial}% of our work is commercial (offices, retail, hospitality and institutional spaces) and about ${workMix.homes}% is homes. The portfolio also includes architectural concepts and renovation work.`,
+    answer: `Yes. We work on commercial spaces (offices, retail, hospitality and institutional interiors) and on residential interiors. The portfolio also includes architectural concepts and renovation work.`,
   },
   {
     question: "What does 'Photograph' or 'Design visualization' mean on a project?",
@@ -82,7 +82,7 @@ export default function FaqPage() {
         title="Frequently asked questions"
         lead="Straight answers about working with the studio."
         crumbs={[{ label: "FAQ" }]}
-        image="roomDining"
+        image="showroom"
         variant="zoom"
       />
 

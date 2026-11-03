@@ -5,7 +5,7 @@ import { CenterReveal } from "@/components/animation/ImageFrames";
 import { RevealGroup, RevealItem } from "@/components/animation/Reveal";
 import { CtaBand } from "@/components/sections/CtaBand";
 import { PageHero } from "@/components/ui/PageHero";
-import { Photo } from "@/components/ui/Photo";
+import { ImageTrio } from "@/components/ui/ImageTrio";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { getProject, projects, statusLabel } from "@/content/projects";
@@ -39,7 +39,8 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
   const project = getProject(slug);
   if (!project) notFound();
 
-  const image = project.images[0];
+  const [first, second, third] = project.images;
+  const trio = first && second && third ? ([first, second, third] as const) : null;
   const service = project.relatedServices.map(getService).find(Boolean);
   const nearby = projects
     .filter(
@@ -67,14 +68,12 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
 
       <section className="bg-white py-14 md:py-20">
         <div className="container-site">
-          {image && (
+          {trio && (
             <CenterReveal>
-              <Photo
-                image={image}
-                ratio="aspect-[16/10]"
-                sizes="(min-width: 1280px) 1200px, 100vw"
-                parallax
-                reveal={false}
+              <ImageTrio
+                images={trio}
+                ratio="aspect-[4/3] sm:aspect-[16/9]"
+                sizes="(min-width: 1280px) 800px, 100vw"
               />
             </CenterReveal>
           )}

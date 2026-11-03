@@ -8,8 +8,7 @@ import {
   type MotionValue,
 } from "motion/react";
 import Image from "next/image";
-import { useRef } from "react";
-import { referenceImages } from "@/content/images";
+import { useRef, useState } from "react";
 import type { ScopeItem } from "@/content/scope";
 import { cn } from "@/lib/utils";
 
@@ -26,7 +25,8 @@ function StackCard({
   progress: MotionValue<number>;
   reduce: boolean;
 }) {
-  const image = referenceImages[room.image];
+  const [active, setActive] = useState(0);
+  const current = room.items[active] ?? room.items[0];
   const flip = index % 2 === 1;
   // Each card shrinks slightly as the next one slides over it.
   const target = 1 - (total - index) * 0.025;
@@ -47,13 +47,26 @@ function StackCard({
             flip && "md:order-2",
           )}
         >
-          <Image
-            src={image.src}
-            alt={image.alt}
-            fill
-            sizes="(min-width: 768px) 50vw, 100vw"
-            className="object-cover"
-          />
+          {room.items.map((item, i) => (
+            <Image
+              key={item.label}
+              src={item.image.src}
+              alt={i === active ? item.image.alt : ""}
+              aria-hidden={i !== active}
+              fill
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className={cn(
+                "object-cover transition-[opacity,transform] duration-700 ease-out",
+                i === active ? "scale-100 opacity-100" : "scale-[1.04] opacity-0",
+              )}
+            />
+          ))}
+          <p
+            key={current?.label}
+            className="text-ivory absolute bottom-3 left-3 bg-[#10261f]/85 px-3 py-1.5 text-[0.6875rem] font-semibold tracking-[0.16em] uppercase backdrop-blur-sm"
+          >
+            {current?.label} &middot; Design visualization
+          </p>
         </div>
         <div className="relative flex flex-col justify-center p-6 sm:p-9 lg:p-12">
           <span
@@ -74,15 +87,27 @@ function StackCard({
             className="relative mt-5 flex flex-wrap gap-2"
             aria-label={`${room.title} includes`}
           >
-            {room.items.map((item) => (
-              <li
-                key={item}
-                className="border-line text-taupe-deep bg-ivory rounded-full border px-3.5 py-1.5 text-[0.8125rem] sm:text-[0.875rem]"
-              >
-                {item}
+            {room.items.map((item, i) => (
+              <li key={item.label}>
+                <button
+                  type="button"
+                  aria-pressed={i === active}
+                  onClick={() => setActive(i)}
+                  className={cn(
+                    "rounded-full border px-3.5 py-1.5 text-[0.8125rem] transition-colors duration-300 sm:text-[0.875rem]",
+                    i === active
+                      ? "text-ivory border-[#17342c] bg-[#17342c]"
+                      : "border-line text-taupe-deep bg-ivory hover:border-[#2b5a49] hover:text-[#17342c]",
+                  )}
+                >
+                  {item.label}
+                </button>
               </li>
             ))}
           </ul>
+          <p className="text-taupe-deep relative mt-4 text-[0.75rem] tracking-[0.12em] uppercase">
+            Tap a badge to see it
+          </p>
         </div>
       </m.article>
     </li>

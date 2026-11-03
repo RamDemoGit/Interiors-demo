@@ -129,7 +129,18 @@ const slide: Variants = {
   show: { opacity: 1, x: 0, transition: { duration: 0.8, ease: EASE } },
 };
 
-const effects = { rise: item, swing, flip, wipe, slide } as const;
+/** Zooms up out of the background, softly focusing as it lands. */
+const zoom: Variants = {
+  hidden: { opacity: 0, scale: 0.6, filter: "blur(8px)" },
+  show: {
+    opacity: 1,
+    scale: 1,
+    filter: "blur(0px)",
+    transition: { duration: 0.9, ease: EASE },
+  },
+};
+
+const effects = { rise: item, swing, flip, wipe, slide, zoom } as const;
 
 /**
  * Child of <RevealGroup>. `effect` picks the entrance: "rise" (default),

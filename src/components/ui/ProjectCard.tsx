@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ImageTrio } from "@/components/ui/ImageTrio";
 import { Photo } from "@/components/ui/Photo";
 import { statusLabel } from "@/content/projects";
 import type { Project } from "@/content/types";
@@ -16,6 +17,8 @@ type Props = {
    * lift (project pages).
    */
   hover?: "zoom" | "frame" | "color" | "caption" | "lift";
+  /** Show the project's three images (large + two small) instead of one. */
+  trio?: boolean;
 };
 
 /**
@@ -29,8 +32,9 @@ export function ProjectCard({
   className,
   reveal = true,
   hover = "zoom",
+  trio = false,
 }: Props) {
-  const image = project.images[0];
+  const [image, second, third] = project.images;
   if (!image) return null;
 
   return (
@@ -45,17 +49,21 @@ export function ProjectCard({
       aria-label={`${project.title}, ${project.location}`}
     >
       <div className="relative overflow-hidden">
-        <Photo
-          image={image}
-          ratio={ratio}
-          sizes={sizes}
-          zoomOnHover={hover === "zoom" || hover === "frame"}
-          reveal={reveal}
-          imgClassName={cn(
-            hover === "color" &&
-              "grayscale-[0.75] transition-[filter,transform] duration-700 [@media(hover:hover)]:group-hover:scale-[1.03] [@media(hover:hover)]:group-hover:grayscale-0",
-          )}
-        />
+        {trio && second && third ? (
+          <ImageTrio images={[image, second, third]} ratio={ratio} sizes={sizes} />
+        ) : (
+          <Photo
+            image={image}
+            ratio={ratio}
+            sizes={sizes}
+            zoomOnHover={hover === "zoom" || hover === "frame"}
+            reveal={reveal}
+            imgClassName={cn(
+              hover === "color" &&
+                "grayscale-[0.75] transition-[filter,transform] duration-700 [@media(hover:hover)]:group-hover:scale-[1.03] [@media(hover:hover)]:group-hover:grayscale-0",
+            )}
+          />
+        )}
         {hover === "frame" && (
           <span
             aria-hidden="true"

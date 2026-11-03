@@ -11,7 +11,7 @@ export type ClientReview = {
   quote: string;
   /** Name as the client wants it shown. */
   name: string;
-  /** Project or place, e.g. "Residence, Velachery". */
+  /** Project or place, e.g. "Residence, Chennai". */
   project?: string;
 };
 
