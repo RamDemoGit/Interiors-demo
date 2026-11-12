@@ -2,9 +2,8 @@ import type { NavItem } from "./types";
 import type { ReferenceKey } from "./images";
 
 /**
- * The services, ordered commercial-first because most of the practice's work
- * is commercial. The original eight come from the brief; furniture, elevation,
- * glass fitting, epoxy flooring and HVAC were added by the owner.
+ * Services list (no duplicates). Commercial interiors first, then homes /
+ * concepts, then specialty and trade services.
  */
 export type ServiceSegment = "commercial" | "homes" | "both";
 
@@ -104,19 +103,19 @@ export const services: ServiceSummary[] = [
     ],
   },
   {
-    slug: "elevation-design",
-    name: "Elevation Design",
+    slug: "elevation-works",
+    name: "Elevation Works",
     segment: "both",
-    image: "elevation",
-    gallery: ["elevation", "mixedUseCochin", "villaEcr"],
+    image: "elevationWorksFacade",
+    gallery: ["elevationWorksFacade", "elevationWorksStreet", "elevationWorksVilla"],
     summary:
-      "Front and exterior elevations for commercial buildings and homes, designed together with the interior.",
+      "Exterior elevation design and works for buildings and homes, from facade concepts to cladding, plaster and glazing.",
     includes: [
       "Facade concepts and massing",
-      "Cladding and material options",
+      "Cladding, plaster and texture finishes",
+      "Stone, tile and panel work",
       "Glazing, fins and screens",
-      "Entrance and canopy design",
-      "Lighting for the elevation",
+      "Entrance, canopy and lighting coordination",
     ],
   },
   {
@@ -165,6 +164,102 @@ export const services: ServiceSummary[] = [
       "Ventilation and fresh-air planning",
       "Coordination with false ceilings and lights",
       "Layouts for offices, shops and homes",
+    ],
+  },
+  {
+    slug: "painting",
+    name: "Painting Works",
+    segment: "both",
+    image: "paintingRoom",
+    gallery: ["paintingRoom", "paintingWallpaper", "paintingDecor"],
+    summary:
+      "Interior and exterior painting planned with the finishes of the space, for homes and commercial interiors.",
+    includes: [
+      "Wall and ceiling painting",
+      "Primer and putty preparation",
+      "Emulsion, enamel and specialty finishes",
+      "Feature walls and colour schemes",
+      "Touch-up and final coat finishing",
+    ],
+  },
+  {
+    slug: "plumbing",
+    name: "Plumbing Works",
+    segment: "both",
+    image: "plumbingBath",
+    gallery: ["plumbingBath", "plumbingKitchen", "plumbingUtility"],
+    summary:
+      "Plumbing for bathrooms, kitchens and utility areas, coordinated with the interior layout.",
+    includes: [
+      "Bathroom and toilet plumbing",
+      "Kitchen sink and utility lines",
+      "Concealed and exposed pipework",
+      "Fixtures and fittings coordination",
+      "Testing before finishing work",
+    ],
+  },
+  {
+    slug: "electricals",
+    name: "Electrical Works",
+    segment: "both",
+    image: "electricalBoard",
+    gallery: ["electricalBoard", "electricalSwitches", "electricalLighting"],
+    summary:
+      "Electrical planning and fitting for points, boards and lighting, aligned with the interior design.",
+    includes: [
+      "Switchboards and distribution",
+      "Points for lights, fans and sockets",
+      "Conduit and wiring runs",
+      "Coordination with false ceilings",
+      "Layouts for homes and commercial spaces",
+    ],
+  },
+  {
+    slug: "civil-works",
+    name: "Civil Works",
+    segment: "both",
+    image: "civilStructure",
+    gallery: ["civilStructure", "civilMasonry", "civilSite"],
+    summary:
+      "Civil and structural finishing works that prepare the shell for interiors and elevations.",
+    includes: [
+      "Masonry and block work",
+      "Plastering and levelling",
+      "Flooring base preparation",
+      "Minor alterations and openings",
+      "Coordination with interiors and services",
+    ],
+  },
+  {
+    slug: "ceiling",
+    name: "Ceiling Works",
+    segment: "both",
+    image: "ceilingTradeLiving",
+    gallery: ["ceilingTradeLiving", "ceilingTradeOffice", "ceilingTradeHospitality"],
+    summary:
+      "False ceilings and ceiling finishes designed with lighting, air-conditioning and the room layout.",
+    includes: [
+      "Gypsum and grid false ceilings",
+      "Cove and drop ceiling forms",
+      "Timber and baffle ceilings",
+      "Cut-outs for lights and HVAC",
+      "Ceilings for homes, offices and hospitality",
+    ],
+  },
+  {
+    slug: "led-works",
+    name: "LED Works",
+    segment: "both",
+    image: "ledFeature",
+    gallery: ["ledCove", "ledLinear", "ledFeature"],
+    summary:
+      "LED lighting planned with the ceiling and interiors, for cove, linear and feature light.",
+    includes: [
+      "Cove and profile LED strips",
+      "Linear and recessed LED fittings",
+      "Feature and accent lighting",
+      "Warm and cool light options",
+      "Coordination with false ceilings and switches",
     ],
   },
 ];

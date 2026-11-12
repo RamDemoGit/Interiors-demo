@@ -9,7 +9,7 @@ import { buildMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildMetadata({
   title: "Interior Design & Architecture Services in Chennai",
   description:
-    "Commercial, retail, workplace, hospitality and institutional interiors, plus homes, renovation and architectural concepts, from our Chennai studio.",
+    "Commercial and home interiors, plus painting, plumbing, electricals, civil works, ceiling, LED and elevation works, from our Chennai studio.",
   path: "/services",
 });
 

@@ -11,6 +11,7 @@ import { EnquiryButton } from "@/components/forms/EnquiryModal";
 import { cn } from "@/lib/utils";
 import { Logo } from "./Logo";
 import { MobileMenu } from "./MobileMenu";
+import { ServicesDropdown } from "./ServicesDropdown";
 
 const DESKTOP_QUERY = "(min-width: 74rem)";
 
@@ -79,17 +80,30 @@ export function Header() {
               {mainNav.map((item) => {
                 const current =
                   item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+                const triggerClass = (isCurrent: boolean) =>
+                  cn(
+                    "group relative inline-flex min-h-11 items-center px-3 text-[0.9375rem] leading-none font-semibold tracking-[0.01em] whitespace-nowrap transition-colors",
+                    isCurrent
+                      ? "text-bronze-deep"
+                      : "text-espresso hover:text-bronze-deep",
+                  );
+
+                if (item.href === "/services") {
+                  return (
+                    <ServicesDropdown
+                      key={item.href}
+                      pathname={pathname}
+                      triggerClassName={triggerClass}
+                    />
+                  );
+                }
+
                 return (
                   <li key={item.href}>
                     <Link
                       href={item.href}
                       aria-current={current ? "page" : undefined}
-                      className={cn(
-                        "group relative inline-flex min-h-11 items-center px-3 text-[0.9375rem] leading-none font-semibold tracking-[0.01em] whitespace-nowrap transition-colors",
-                        current
-                          ? "text-bronze-deep"
-                          : "text-espresso hover:text-bronze-deep",
-                      )}
+                      className={triggerClass(current)}
                     >
                       {item.label}
                       <span

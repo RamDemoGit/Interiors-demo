@@ -68,7 +68,28 @@ export type ReferenceKey =
   | "wardrobeUnit"
   | "tvUnit"
   | "kitchenCabinets"
-  | "poojaModern";
+  | "poojaModern"
+  | "paintingRoom"
+  | "paintingWallpaper"
+  | "paintingDecor"
+  | "plumbingBath"
+  | "plumbingKitchen"
+  | "plumbingUtility"
+  | "electricalBoard"
+  | "electricalSwitches"
+  | "electricalLighting"
+  | "civilStructure"
+  | "civilMasonry"
+  | "civilSite"
+  | "ledCove"
+  | "ledLinear"
+  | "ledFeature"
+  | "elevationWorksFacade"
+  | "elevationWorksStreet"
+  | "elevationWorksVilla"
+  | "ceilingTradeLiving"
+  | "ceilingTradeOffice"
+  | "ceilingTradeHospitality";
 
 export const referenceImages: Record<ReferenceKey, ProjectImage> = {
   living: {
@@ -424,5 +445,131 @@ export const referenceImages: Record<ReferenceKey, ProjectImage> = {
     alt: "Modern wall-mounted pooja unit with a backlit panel (design visualization)",
     width: 1024,
     height: 768,
+  },
+  paintingRoom: {
+    src: "/reference/services/svc-painting-1.jpg",
+    alt: "Freshly painted interior wall with a clean smooth finish (photograph)",
+    width: 1200,
+    height: 900,
+  },
+  paintingWallpaper: {
+    src: "/reference/services/svc-painting-2.jpg",
+    alt: "Paint rollers and tools ready for interior painting (photograph)",
+    width: 1200,
+    height: 900,
+  },
+  paintingDecor: {
+    src: "/reference/services/svc-painting-3.jpg",
+    alt: "Bright painted kitchen and living space with white walls (photograph)",
+    width: 1200,
+    height: 900,
+  },
+  plumbingBath: {
+    src: "/reference/services/svc-plumbing-1.jpg",
+    alt: "Modern bathroom with shower, bathtub and vanity taps (photograph)",
+    width: 1400,
+    height: 1050,
+  },
+  plumbingKitchen: {
+    src: "/reference/services/svc-plumbing-2.jpg",
+    alt: "Kitchen island with double sink and spring mixer tap (photograph)",
+    width: 1400,
+    height: 1050,
+  },
+  plumbingUtility: {
+    src: "/reference/services/svc-plumbing-3.jpg",
+    alt: "Bright bathroom with double basin taps, bathtub and shower (photograph)",
+    width: 1400,
+    height: 1050,
+  },
+  electricalBoard: {
+    src: "/reference/services/svc-electrical-1.jpg",
+    alt: "Electrical wiring and conduit work in progress (photograph)",
+    width: 1200,
+    height: 900,
+  },
+  electricalSwitches: {
+    src: "/reference/services/svc-electrical-2.jpg",
+    alt: "Interior space prepared for switches, sockets and lighting points (photograph)",
+    width: 1200,
+    height: 900,
+  },
+  electricalLighting: {
+    src: "/reference/services/svc-electrical-3.jpg",
+    alt: "Lit interior showing coordinated electrical lighting (photograph)",
+    width: 1200,
+    height: 900,
+  },
+  civilStructure: {
+    src: "/reference/services/svc-civil-1.jpg",
+    alt: "Building under construction with civil structural works (photograph)",
+    width: 1200,
+    height: 900,
+  },
+  civilMasonry: {
+    src: "/reference/services/svc-civil-2.jpg",
+    alt: "Site with masonry and concrete civil works underway (photograph)",
+    width: 1200,
+    height: 900,
+  },
+  civilSite: {
+    src: "/reference/services/svc-civil-3.jpg",
+    alt: "Active construction site for civil works (photograph)",
+    width: 1200,
+    height: 900,
+  },
+  ledCove: {
+    src: "/reference/services/svc-led-1.jpg",
+    alt: "Ceiling with hanging and accent LED lighting (photograph)",
+    width: 1200,
+    height: 900,
+  },
+  ledLinear: {
+    src: "/reference/services/svc-led-2.jpg",
+    alt: "Architectural LED lighting creating a coloured wash (photograph)",
+    width: 1200,
+    height: 900,
+  },
+  ledFeature: {
+    src: "/reference/services/svc-led-3.jpg",
+    alt: "Feature pendant and LED mood lighting in an interior (photograph)",
+    width: 1200,
+    height: 900,
+  },
+  elevationWorksFacade: {
+    src: "/reference/services/svc-elevworks-1.jpg",
+    alt: "Modern glass and cladding building elevation (photograph)",
+    width: 1200,
+    height: 900,
+  },
+  elevationWorksStreet: {
+    src: "/reference/services/svc-elevworks-2.jpg",
+    alt: "Multi-storey apartment elevation from the street (photograph)",
+    width: 1200,
+    height: 900,
+  },
+  elevationWorksVilla: {
+    src: "/reference/services/svc-elevworks-3.jpg",
+    alt: "Residential house elevation with exterior finishes (photograph)",
+    width: 1200,
+    height: 900,
+  },
+  ceilingTradeLiving: {
+    src: "/reference/services/svc-ceiling-1.jpg",
+    alt: "Modern interior with a designed false ceiling (photograph)",
+    width: 1200,
+    height: 900,
+  },
+  ceilingTradeOffice: {
+    src: "/reference/services/svc-ceiling-2.jpg",
+    alt: "Contemporary room with a clean ceiling and lighting (photograph)",
+    width: 1200,
+    height: 900,
+  },
+  ceilingTradeHospitality: {
+    src: "/reference/services/svc-ceiling-3.jpg",
+    alt: "Interior ceiling detail with soft architectural light (photograph)",
+    width: 1200,
+    height: 900,
   },
 };

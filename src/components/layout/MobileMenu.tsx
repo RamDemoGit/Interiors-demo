@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
-import { mainNav } from "@/content/navigation";
+import { useEffect, useId, useRef, useState } from "react";
+import { mainNav, serviceLinks } from "@/content/navigation";
 import { siteConfig, verifiedContact } from "@/config/site";
 import { useFocusTrap } from "@/lib/use-focus-trap";
 import { cn } from "@/lib/utils";
@@ -26,6 +26,12 @@ export function MobileMenu({ open, pathname, onClose }: Props) {
   const panelRef = useRef<HTMLDivElement>(null);
   useFocusTrap(panelRef, open, onClose);
   const { open: openEnquiry } = useEnquiry();
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const servicesId = useId();
+
+  useEffect(() => {
+    if (!open) setServicesOpen(false);
+  }, [open]);
 
   return (
     <div
@@ -64,18 +70,89 @@ export function MobileMenu({ open, pathname, onClose }: Props) {
           {mainNav.map((item, i) => {
             const current =
               item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+            const rowClass = cn(
+              "font-heading flex min-h-14 w-full items-center justify-between py-2.5 text-left text-[clamp(1.75rem,1.3rem+2.2vw,2.5rem)] transition-[transform,opacity,color] duration-700 ease-(--ease-out-expo)",
+              open ? "translate-y-0 opacity-100" : "translate-y-full opacity-0",
+              current ? "text-bronze-deep" : "text-espresso",
+            );
+            const delay = { transitionDelay: open ? `${180 + i * 55}ms` : "0ms" };
+
+            if (item.href === "/services") {
+              return (
+                <li key={item.href} className="border-line overflow-hidden border-b">
+                  <button
+                    type="button"
+                    aria-expanded={servicesOpen}
+                    aria-controls={servicesId}
+                    onClick={() => setServicesOpen((v) => !v)}
+                    style={delay}
+                    className={rowClass}
+                  >
+                    <span className="flex items-baseline gap-4">
+                      <span className="text-taupe-deep font-body text-xs tracking-[0.2em]">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      {item.label}
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className={cn(
+                        "text-bronze text-xl transition-transform duration-300",
+                        servicesOpen && "rotate-90",
+                      )}
+                    >
+                      &rarr;
+                    </span>
+                  </button>
+                  <ul
+                    id={servicesId}
+                    hidden={!servicesOpen}
+                    className="bg-sand/40 border-line border-t pb-3"
+                  >
+                    <li>
+                      <Link
+                        href="/services"
+                        onClick={onClose}
+                        aria-current={pathname === "/services" ? "page" : undefined}
+                        className={cn(
+                          "text-taupe-deep hover:text-bronze-deep block px-4 py-2.5 pl-[3.25rem] text-[0.9375rem] font-semibold tracking-[0.04em]",
+                          pathname === "/services" && "text-bronze-deep",
+                        )}
+                      >
+                        All services
+                      </Link>
+                    </li>
+                    {serviceLinks.map((service) => {
+                      const active = pathname === service.href;
+                      return (
+                        <li key={service.href}>
+                          <Link
+                            href={service.href}
+                            onClick={onClose}
+                            aria-current={active ? "page" : undefined}
+                            className={cn(
+                              "hover:text-bronze-deep block px-4 py-2.5 pl-[3.25rem] text-[0.9375rem] leading-snug font-medium",
+                              active ? "text-bronze-deep" : "text-espresso",
+                            )}
+                          >
+                            {service.label}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </li>
+              );
+            }
+
             return (
               <li key={item.href} className="border-line overflow-hidden border-b">
                 <Link
                   href={item.href}
                   onClick={onClose}
                   aria-current={current ? "page" : undefined}
-                  style={{ transitionDelay: open ? `${180 + i * 55}ms` : "0ms" }}
-                  className={cn(
-                    "font-heading flex min-h-14 items-center justify-between py-2.5 text-[clamp(1.75rem,1.3rem+2.2vw,2.5rem)] transition-[transform,opacity,color] duration-700 ease-(--ease-out-expo)",
-                    open ? "translate-y-0 opacity-100" : "translate-y-full opacity-0",
-                    current ? "text-bronze-deep" : "text-espresso",
-                  )}
+                  style={delay}
+                  className={rowClass}
                 >
                   <span className="flex items-baseline gap-4">
                     <span className="text-taupe-deep font-body text-xs tracking-[0.2em]">

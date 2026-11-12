@@ -5,7 +5,8 @@ import type { NextConfig } from "next";
  * site structure. Keep entries explicit (no wildcards) to avoid loops.
  */
 const redirectMap: { source: string; destination: string }[] = [
-  // Example: { source: "/old-path", destination: "/services" },
+  // Merged into Elevation Works (duplicate page removed).
+  { source: "/services/elevation-design", destination: "/services/elevation-works" },
 ];
 
 const securityHeaders = [

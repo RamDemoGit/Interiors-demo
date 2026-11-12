@@ -111,8 +111,6 @@ export const featureFlags = {
   showPreferredBrands: false,
   /** Area landing pages are `noindex` until the owner approves the copy. */
   indexAreaPages: false,
-  /** Testimonials are never fabricated; the quote area stays hidden. */
-  showTestimonialQuotes: false,
   /**
    * Shows a "Reference image" chip on every stock/placeholder image.
    * Currently off by request. Images are still stock/illustrative until real

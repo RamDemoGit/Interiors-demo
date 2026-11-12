@@ -13,7 +13,7 @@ type Props = {
   reveal?: boolean;
   /**
    * Hover personality, so every page's cards feel different:
-   * zoom (home), frame (projects), color (services), caption (testimonials),
+   * zoom (home), frame (projects), color (services), caption,
    * lift (project pages).
    */
   hover?: "zoom" | "frame" | "color" | "caption" | "lift";

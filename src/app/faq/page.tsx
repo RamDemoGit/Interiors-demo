@@ -47,11 +47,6 @@ const faqs = [
       "A Photograph shows a completed space. A Design visualization is a rendering of a proposed or conceptual design and may differ from the finished result. Every project image is labelled one or the other.",
   },
   {
-    question: "Can I share my experience of working with you?",
-    answer:
-      "Yes, we would be glad to hear it. See the Testimonials page for how to send us your experience.",
-  },
-  {
     question: "How is my personal information used?",
     answer:
       "Only to respond to your enquiry and discuss your project. Read the Privacy Policy and Cookie Policy for full details.",
