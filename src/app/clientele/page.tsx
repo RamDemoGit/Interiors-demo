@@ -108,7 +108,7 @@ export default function ClientelePage() {
             <SectionHeading
               eyebrow="Our clients"
               title="Names behind the spaces."
-              lead="Tap any logo to view it full size."
+              lead="Client logos in full colour. Tap any logo for a clear full-size view."
               className="mb-10 md:mb-12"
             />
           </div>

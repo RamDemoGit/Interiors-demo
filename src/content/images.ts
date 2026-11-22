@@ -69,6 +69,11 @@ export type ReferenceKey =
   | "tvUnit"
   | "kitchenCabinets"
   | "poojaModern"
+  | "heroCompanyOffice"
+  | "heroCompanyMeeting"
+  | "heroCompanyLounge"
+  | "heroCompanyWorkspace"
+  | "heroCompanyFloor"
   | "paintingRoom"
   | "paintingWallpaper"
   | "paintingDecor"
@@ -571,5 +576,35 @@ export const referenceImages: Record<ReferenceKey, ProjectImage> = {
     alt: "Interior ceiling detail with soft architectural light (photograph)",
     width: 1200,
     height: 900,
+  },
+  heroCompanyOffice: {
+    src: "/reference/hero-company-office.jpg",
+    alt: "Professional company office corridor with glass meeting rooms and a fitted kitchenette (photograph)",
+    width: 1920,
+    height: 1280,
+  },
+  heroCompanyMeeting: {
+    src: "/reference/hero-company-meeting.jpg",
+    alt: "Corporate meeting room with a long conference table and floor-to-ceiling glazing (photograph)",
+    width: 1920,
+    height: 1280,
+  },
+  heroCompanyLounge: {
+    src: "/reference/hero-company-lounge.jpg",
+    alt: "Modern office lounge and corridor with glass partitions (photograph)",
+    width: 1920,
+    height: 1280,
+  },
+  heroCompanyWorkspace: {
+    src: "/reference/hero-company-workspace.jpg",
+    alt: "Open-plan company workspace with desks, pendant lights and large windows (photograph)",
+    width: 1920,
+    height: 1280,
+  },
+  heroCompanyFloor: {
+    src: "/reference/hero-company-floor.jpg",
+    alt: "Busy corporate office floor with workstations and a double-height interior (photograph)",
+    width: 1920,
+    height: 1280,
   },
 };

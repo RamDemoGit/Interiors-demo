@@ -21,34 +21,40 @@ type Slide = {
 
 const slides: Slide[] = [
   {
-    image: "officeLobby",
-    label: "Corporate office lobby interior",
-    focal: "center 55%",
+    image: "heroCompanyOffice",
+    label: "Professional company office interior",
+    focal: "center 50%",
     pan: ["-2%", "-1.4%"],
   },
   {
-    image: "homeLiving",
-    label: "Home living room interior",
-    focal: "center 55%",
+    image: "heroCompanyWorkspace",
+    label: "Open-plan company workspace interior",
+    focal: "center 45%",
     pan: ["2%", "-1%"],
   },
   {
-    image: "hotelLobby",
-    label: "Commercial hotel lobby interior",
+    image: "heroCompanyMeeting",
+    label: "Corporate meeting room interior",
     focal: "center 50%",
     pan: ["-1.2%", "1.6%"],
   },
   {
-    image: "homeKitchen",
-    label: "Home kitchen and dining interior",
-    focal: "center 55%",
+    image: "heroCompanyFloor",
+    label: "Corporate office floor interior",
+    focal: "center 45%",
     pan: ["1.6%", "1.2%"],
+  },
+  {
+    image: "heroCompanyLounge",
+    label: "Company lounge and office corridor",
+    focal: "center 50%",
+    pan: ["-2%", "-1%"],
   },
   {
     image: "boardroom",
     label: "Corporate boardroom interior",
     focal: "center 55%",
-    pan: ["-2%", "-1%"],
+    pan: ["1.4%", "-1.2%"],
   },
 ];
 

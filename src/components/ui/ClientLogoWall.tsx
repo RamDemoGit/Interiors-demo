@@ -26,14 +26,15 @@ function Tile({
       tabIndex={hidden ? -1 : 0}
       aria-haspopup="dialog"
       aria-label={`View ${item.name}`}
-      className="logo-tile border-line group/tile hover:border-bronze relative mx-2 flex h-24 w-44 shrink-0 cursor-zoom-in items-center justify-center border bg-white p-4 transition-[transform,box-shadow,border-color] duration-500 ease-(--ease-out-expo) hover:-translate-y-1 hover:shadow-[0_22px_40px_-24px_rgba(53,44,39,0.55)] focus-visible:-translate-y-1 md:h-28 md:w-56"
+      className="logo-tile border-line group/tile hover:border-bronze relative mx-2.5 flex h-28 w-52 shrink-0 cursor-zoom-in items-center justify-center border bg-white p-5 transition-[transform,box-shadow,border-color] duration-500 ease-(--ease-out-expo) hover:-translate-y-1 hover:shadow-[0_22px_40px_-24px_rgba(53,44,39,0.55)] focus-visible:-translate-y-1 md:h-32 md:w-60 md:p-6"
     >
       <span className="relative block h-full w-full">
         <Image
           src={item.src}
           alt={item.name}
           fill
-          sizes="224px"
+          sizes="240px"
+          quality={90}
           unoptimized={item.src.toLowerCase().endsWith(".svg")}
           className="object-contain"
         />
@@ -84,7 +85,7 @@ function Row({
   );
 
   return (
-    <div className="marquee overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_7%,#000_93%,transparent)] py-2">
+    <div className="marquee overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_2%,#000_98%,transparent)] py-3">
       <div className="marquee-track" style={style}>
         {list(false)}
         {list(true)}
@@ -159,7 +160,7 @@ export function ClientLogoWall({ items }: { items: WallItem[] }) {
         <Row
           items={rowA}
           offset={0}
-          duration={Math.max(40, rowA.length * 4)}
+          duration={Math.max(52, rowA.length * 5.5)}
           label="Our clients"
           onOpen={open}
         />
@@ -168,7 +169,7 @@ export function ClientLogoWall({ items }: { items: WallItem[] }) {
             items={rowB}
             offset={split}
             reverse
-            duration={Math.max(46, rowB.length * 4.4)}
+            duration={Math.max(58, rowB.length * 6)}
             label="More of our clients"
             onOpen={open}
           />
